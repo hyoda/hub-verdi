@@ -18,15 +18,15 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.HOST_IP }} >> ~/.ssh/known_hosts
     
-    - name: Deploy to Server
+    - name: Create project directory
       run: |
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
-          # Create project directory if it doesn't exist
           sudo mkdir -p /var/www/autoplan.hyoda.kr
           sudo chown ubuntu:ubuntu /var/www/autoplan.hyoda.kr
         "
-        
-        # Sync files to server
+    
+    - name: Sync files to server
+      run: |
         rsync -avz -e 'ssh -i ~/.ssh/id_rsa' \
           --exclude='.git' \
           --exclude='.github' \
@@ -34,15 +34,14 @@ jobs:
           --exclude='cursor-*' \
           --exclude='tasks' \
           ./ ubuntu@${{ secrets.HOST_IP }}:/var/www/autoplan.hyoda.kr/
-        
-        # Setup Nginx and SSL
+    
+    - name: Setup Nginx
+      run: |
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
-          # Install nginx and certbot if not installed
           sudo apt-get update
           sudo apt-get install -y nginx certbot python3-certbot-nginx
           
-          # Copy nginx configuration
-          sudo tee /etc/nginx/sites-available/autoplan.hyoda.kr > /dev/null <<'EOF'
+          sudo tee /etc/nginx/sites-available/autoplan.hyoda.kr > /dev/null << 'NGINXEOF'
 server {
     listen 80;
     server_name autoplan.hyoda.kr;
@@ -50,38 +49,29 @@ server {
     index index.html;
 
     location / {
-        try_files \$uri \$uri/ =404;
+        try_files \\\$uri \\\$uri/ =404;
     }
 
-    # Security headers
     add_header X-Frame-Options DENY;
     add_header X-Content-Type-Options nosniff;
-    add_header X-XSS-Protection \"1; mode=block\";
-    add_header Referrer-Policy \"strict-origin-when-cross-origin\";
+    add_header X-XSS-Protection \\\"1; mode=block\\\";
+    add_header Referrer-Policy \\\"strict-origin-when-cross-origin\\\";
 
-    # Cache static files
-    location ~* \.(css|js|jpg|jpeg|png|gif|ico|svg)$ {
+    location ~* \\\.(css|js|jpg|jpeg|png|gif|ico|svg)\\\$ {
         expires 1y;
-        add_header Cache-Control \"public, immutable\";
+        add_header Cache-Control \\\"public, immutable\\\";
     }
 }
-EOF
+NGINXEOF
           
-          # Enable site
           sudo ln -sf /etc/nginx/sites-available/autoplan.hyoda.kr /etc/nginx/sites-enabled/
-          
-          # Test nginx configuration
           sudo nginx -t
-          
-          # Reload nginx
-          sudo systemctl reload nginx
-          
-          # Setup SSL with Let's Encrypt
-          sudo certbot --nginx -d autoplan.hyoda.kr --non-interactive --agree-tos --email admin@hyoda.kr --redirect
-          
-          # Reload nginx after SSL setup
           sudo systemctl reload nginx
         "
     
-    env:
-      HOST_IP: ${{ secrets.HOST_IP }}
+    - name: Setup SSL
+      run: |
+        ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
+          sudo certbot --nginx -d autoplan.hyoda.kr --non-interactive --agree-tos --email admin@hyoda.kr --redirect
+          sudo systemctl reload nginx
+        "
