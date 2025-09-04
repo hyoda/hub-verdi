@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>멤버쉽 가입 - 정대표의 오토플랜</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1>정대표의 오토플랜</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">홈</a></li>
+                    <li><a href="membership.html">멤버쉽 소개</a></li>
+                    <li><a href="benefits.html">혜택 & 서비스</a></li>
+                    <li><a href="programs.html">프로그램</a></li>
+                    <li><a href="signup.html" class="cta-button">멤버쉽 가입</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="signup-container">
+            <div class="price-highlight">
+                <h2>함께 성장하는 공동체</h2>
+                <p>김포에서 시작된 작은 만남이 만들어낸 지역 생태계에 참여하세요</p>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <p style="margin: 0; font-size: 0.9rem;">🤝 신뢰와 협력으로 만들어가는 지역의 미래</p>
+                </div>
+            </div>
+
+            <form id="membership-form" action="#" method="POST">
+                <h2 style="text-align: center; margin-bottom: 30px; color: #2c5530;">공동체 참여 신청</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">성명 *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처 *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">이메일 주소 *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="company">회사/상호명</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="position">직책/역할</label>
+                        <input type="text" id="position" name="position">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="business-type">업종 *</label>
+                    <select id="business-type" name="business-type" required>
+                        <option value="">업종을 선택해주세요</option>
+                        <option value="retail">소매업</option>
+                        <option value="food-service">음식서비스업</option>
+                        <option value="manufacturing">제조업</option>
+                        <option value="service">서비스업</option>
+                        <option value="it">IT/기술업</option>
+                        <option value="consulting">컨설팅</option>
+                        <option value="education">교육</option>
+                        <option value="healthcare">헬스케어</option>
+                        <option value="creative">창작/예술</option>
+                        <option value="startup">스타트업</option>
+                        <option value="other">기타</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="region">지역 *</label>
+                        <select id="region" name="region" required>
+                            <option value="">지역을 선택해주세요</option>
+                            <option value="seoul">서울특별시</option>
+                            <option value="busan">부산광역시</option>
+                            <option value="daegu">대구광역시</option>
+                            <option value="incheon">인천광역시</option>
+                            <option value="gwangju">광주광역시</option>
+                            <option value="daejeon">대전광역시</option>
+                            <option value="ulsan">울산광역시</option>
+                            <option value="sejong">세종특별자치시</option>
+                            <option value="gyeonggi">경기도</option>
+                            <option value="gangwon">강원도</option>
+                            <option value="chungbuk">충청북도</option>
+                            <option value="chungnam">충청남도</option>
+                            <option value="jeonbuk">전라북도</option>
+                            <option value="jeonnam">전라남도</option>
+                            <option value="gyeongbuk">경상북도</option>
+                            <option value="gyeongnam">경상남도</option>
+                            <option value="jeju">제주특별자치도</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">사업 경력</label>
+                        <select id="experience" name="experience">
+                            <option value="">경력을 선택해주세요</option>
+                            <option value="startup">창업 준비 중</option>
+                            <option value="under1">1년 미만</option>
+                            <option value="1-3">1~3년</option>
+                            <option value="3-5">3~5년</option>
+                            <option value="5-10">5~10년</option>
+                            <option value="over10">10년 이상</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="motivation">가입 동기 및 기대사항 *</label>
+                    <textarea id="motivation" name="motivation" rows="4" placeholder="정대표의 오토플랜 공동체에 참여하시는 이유와 기대하시는 점을 자유롭게 작성해주세요." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="challenges">현재 직면한 비즈니스 과제</label>
+                    <textarea id="challenges" name="challenges" rows="3" placeholder="현재 겪고 계시는 비즈니스 상의 어려움이나 해결하고 싶은 과제가 있으시면 작성해주세요."></textarea>
+                </div>
+
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 30px 0;">
+                    <h3 style="color: #2c5530; margin-bottom: 15px;">💳 결제 정보</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e1e5e9;">
+                            <h4 style="color: #2c5530; margin-bottom: 5px;">💰 멤버쉽 비용</h4>
+                            <p style="font-size: 1.2rem; font-weight: bold; color: #333;">₩3,000,000</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e1e5e9;">
+                            <h4 style="color: #2c5530; margin-bottom: 5px;">⏰ 이용 기간</h4>
+                            <p style="font-size: 1.2rem; font-weight: bold; color: #333;">12개월</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #e1e5e9;">
+                            <h4 style="color: #2c5530; margin-bottom: 5px;">🎁 특별 혜택</h4>
+                            <p style="font-size: 1.2rem; font-weight: bold; color: #333;">무제한 이용</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
+                        <p style="margin: 0; font-weight: 600; color: #856404;">
+                            📋 가입 신청 후 결제 안내를 개별 연락드립니다.<br>
+                            계좌이체, 카드결제, 분할납부 등 다양한 결제 옵션을 제공합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; margin: 30px 0;">
+                    <h4 style="color: #2c5530; margin-bottom: 15px;">✅ 개인정보 수집 및 이용 동의</h4>
+                    <div style="max-height: 120px; overflow-y: auto; background: white; padding: 15px; border-radius: 8px; font-size: 0.9rem; line-height: 1.5; border: 1px solid #ddd;">
+                        <p><strong>[개인정보 수집 및 이용 동의]</strong></p>
+                        <p><strong>1. 수집하는 개인정보 항목:</strong> 성명, 연락처, 이메일, 회사명, 직책, 업종, 지역, 사업경력, 가입동기</p>
+                        <p><strong>2. 개인정보 수집 및 이용목적:</strong> 멤버쉽 서비스 제공, 고객 관리, 서비스 개선, 마케팅 활용</p>
+                        <p><strong>3. 개인정보 보유 및 이용기간:</strong> 멤버쉽 종료 후 3년 또는 회원 탈퇴시까지</p>
+                        <p><strong>4. 개인정보 제공 거부권:</strong> 귀하는 개인정보 수집·이용에 대한 동의를 거부할 권리가 있으나, 동의를 거부할 경우 멤버쉽 가입이 제한될 수 있습니다.</p>
+                    </div>
+                    <label style="display: flex; align-items: center; margin-top: 15px; cursor: pointer;">
+                        <input type="checkbox" id="privacy-agree" name="privacy-agree" required style="margin-right: 10px; transform: scale(1.2);">
+                        <span>개인정보 수집 및 이용에 동의합니다. (필수)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; margin-top: 10px; cursor: pointer;">
+                        <input type="checkbox" id="marketing-agree" name="marketing-agree" style="margin-right: 10px; transform: scale(1.2);">
+                        <span>마케팅 정보 수신에 동의합니다. (선택)</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    🤝 공동체 참여 신청하기
+                </button>
+
+                <p style="text-align: center; margin-top: 20px; color: #666; font-size: 0.9rem;">
+                    가입 신청 후 24시간 내에 담당자가 연락드립니다.<br>
+                    문의사항이 있으시면 언제든지 연락주세요.
+                </p>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 정대표의 오토플랜. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('membership-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 필수 동의 체크
+            const privacyAgree = document.getElementById('privacy-agree').checked;
+            if (!privacyAgree) {
+                alert('개인정보 수집 및 이용에 동의해주세요.');
+                return;
+            }
+            
+            // 폼 데이터 수집
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // 실제 구현에서는 서버로 데이터를 전송
+            console.log('가입 신청 데이터:', data);
+            
+            // 성공 메시지
+            alert('🎉 공동체 참여 신청이 완료되었습니다!\n\n24시간 내에 담당자가 연락드려 상세 안내를 해드립니다.\n감사합니다!');
+            
+            // 폼 초기화 (선택적)
+            // this.reset();
+        });
+    </script>
+</body>
+</html>
