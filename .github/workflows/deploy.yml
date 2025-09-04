@@ -3,8 +3,6 @@ name: Deploy to Lightsail
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
 
 jobs:
   deploy:
@@ -85,5 +83,5 @@ EOF
           sudo systemctl reload nginx
         "
     
-    environment:
+    env:
       HOST_IP: ${{ secrets.HOST_IP }}
