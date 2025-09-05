@@ -113,8 +113,15 @@ app.post('/signup', limiter, async (req, res) => {
       replyTo: email
     };
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    // Try to send email, but don't fail if email fails
+    try {
+      await transporter.sendMail(mailOptions);
+      console.log(`Email sent for signup: ${firstName} (${email})`);
+    } catch (emailError) {
+      console.error('Email sending failed:', emailError.message);
+      // Continue without failing - log to file for manual review
+      console.log(`Manual review needed: ${firstName} (${email}) - ${new Date().toISOString()}`);
+    }
 
     console.log(`New signup: ${firstName} (${email}) at ${new Date().toISOString()}`);
 
