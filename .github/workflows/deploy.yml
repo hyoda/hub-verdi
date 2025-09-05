@@ -18,63 +18,53 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.HOST_IP }} >> ~/.ssh/known_hosts
     
-    - name: Create project directory
+    - name: Sync frontend files
       run: |
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
           sudo mkdir -p /var/www/autoplan.hyoda.kr
           sudo chown ubuntu:ubuntu /var/www/autoplan.hyoda.kr
         "
-    
-    - name: Sync files to server
-      run: |
+        
         rsync -avz -e 'ssh -i ~/.ssh/id_rsa' \
           --exclude='.git' \
           --exclude='.github' \
           --exclude='*.md' \
           --exclude='cursor-*' \
           --exclude='tasks' \
+          --exclude='api' \
           ./ ubuntu@${{ secrets.HOST_IP }}:/var/www/autoplan.hyoda.kr/
     
-    - name: Setup Dependencies and API
+    - name: Setup and deploy API
       run: |
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
-          # Install dependencies
-          sudo apt-get update
-          sudo apt-get install -y nginx certbot python3-certbot-nginx nodejs npm
-          
-          # Install PM2 for process management
-          sudo npm install -g pm2
+          # Install PM2 if not exists
+          if ! command -v pm2 &> /dev/null; then
+            sudo npm install -g pm2
+          fi
           
           # Setup API directory
           sudo mkdir -p /var/www/autoplan-api
           sudo chown ubuntu:ubuntu /var/www/autoplan-api
         "
-    
-    - name: Deploy API
-      run: |
+        
         # Sync API files
         rsync -avz -e 'ssh -i ~/.ssh/id_rsa' \
           ./api/ ubuntu@${{ secrets.HOST_IP }}:/var/www/autoplan-api/
         
+        # Install dependencies and restart API
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
           cd /var/www/autoplan-api
           npm install
-          
-          # Stop existing PM2 process
           pm2 stop hub-verdi-api 2>/dev/null || true
           pm2 delete hub-verdi-api 2>/dev/null || true
-          
-          # Start API server with PM2
           pm2 start ecosystem.config.js
           pm2 save
-          pm2 startup
         "
     
-    - name: Setup Nginx and SSL
+    - name: Update Nginx configuration
       run: |
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
-          # Create nginx config with API proxy
-          cat > /tmp/nginx.conf << 'EOF'
+          sudo tee /etc/nginx/sites-available/autoplan.hyoda.kr > /dev/null <<'NGINX_CONF'
 server {
     listen 80;
     server_name autoplan.hyoda.kr;
@@ -85,37 +75,46 @@ server {
     location /api/ {
         proxy_pass http://localhost:4000/;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade \\\$http_upgrade;
-        proxy_set_header Connection \\\"upgrade\\\";
-        proxy_set_header Host \\\$host;
-        proxy_set_header X-Real-IP \\\$remote_addr;
-        proxy_set_header X-Forwarded-For \\\$proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto \\\$scheme;
-        proxy_cache_bypass \\\$http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection \"upgrade\";
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
         proxy_read_timeout 86400;
     }
 
+    # Static files
     location / {
-        try_files \\\$uri \\\$uri/ =404;
+        try_files \$uri \$uri/ =404;
     }
 
+    # Security headers
     add_header X-Frame-Options DENY;
     add_header X-Content-Type-Options nosniff;
-    add_header X-XSS-Protection \\\"1; mode=block\\\";
-    add_header Referrer-Policy \\\"strict-origin-when-cross-origin\\\";
+    add_header X-XSS-Protection \"1; mode=block\";
+    add_header Referrer-Policy \"strict-origin-when-cross-origin\";
 
-    location ~* \\\.(css|js|jpg|jpeg|png|gif|ico|svg)\\\$ {
+    # Cache static files
+    location ~* \\.(css|js|jpg|jpeg|png|gif|ico|svg)\$ {
         expires 1y;
-        add_header Cache-Control \\\"public, immutable\\\";
+        add_header Cache-Control \"public, immutable\";
     }
 }
-EOF
+NGINX_CONF
           
-          sudo mv /tmp/nginx.conf /etc/nginx/sites-available/autoplan.hyoda.kr
           sudo ln -sf /etc/nginx/sites-available/autoplan.hyoda.kr /etc/nginx/sites-enabled/
-          sudo nginx -t && sudo systemctl reload nginx
-          
-          # Setup SSL
-          sudo certbot --nginx -d autoplan.hyoda.kr --non-interactive --agree-tos --email hdseo@devmine.co.kr --redirect
+          sudo nginx -t
+          sudo systemctl reload nginx
+        "
+    
+    - name: Setup SSL if needed
+      run: |
+        ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
+          # Only run certbot if certificate doesn't exist
+          if [ ! -f /etc/letsencrypt/live/autoplan.hyoda.kr/fullchain.pem ]; then
+            sudo certbot --nginx -d autoplan.hyoda.kr --non-interactive --agree-tos --email hdseo@devmine.co.kr --redirect
+          fi
           sudo systemctl reload nginx
         "
