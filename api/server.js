@@ -50,12 +50,11 @@ app.post('/signup', limiter, async (req, res) => {
       phone,
       email,
       company,
-      businessType,
+      position,
+      'business-type': businessType,
       region,
-      businessSize,
       experience,
-      interests,
-      goals,
+      motivation,
       challenges,
       'privacy-agree': privacyAgree
     } = req.body;
@@ -88,22 +87,19 @@ app.post('/signup', limiter, async (req, res) => {
           <li><strong>연락처:</strong> ${phone}</li>
           <li><strong>이메일:</strong> ${email}</li>
           <li><strong>회사/단체명:</strong> ${company || '미입력'}</li>
+          <li><strong>직책/역할:</strong> ${position || '미입력'}</li>
         </ul>
         
         <h3>💼 비즈니스 정보</h3>
         <ul>
           <li><strong>업종:</strong> ${businessType || '미입력'}</li>
           <li><strong>지역:</strong> ${region || '미입력'}</li>
-          <li><strong>사업 규모:</strong> ${businessSize || '미입력'}</li>
           <li><strong>사업 경험:</strong> ${experience || '미입력'}</li>
         </ul>
         
-        <h3>🎯 관심사 및 목표</h3>
-        <ul>
-          <li><strong>관심 분야:</strong> ${interests || '미입력'}</li>
-          <li><strong>목표:</strong> ${goals || '미입력'}</li>
-          <li><strong>해결하고 싶은 과제:</strong> ${challenges || '미입력'}</li>
-        </ul>
+        <h3>🎯 가입 동기 및 기대사항</h3>
+        <p><strong>가입 동기:</strong> ${motivation || '미입력'}</p>
+        <p><strong>해결하고 싶은 과제:</strong> ${challenges || '미입력'}</p>
         
         <hr>
         <p style="color: #666; font-size: 0.9rem;">
