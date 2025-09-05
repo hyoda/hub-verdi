@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -42,7 +43,7 @@ app.get('/health', (req, res) => {
 });
 
 // Membership signup endpoint
-app.post('/api/signup', limiter, async (req, res) => {
+app.post('/signup', limiter, async (req, res) => {
   try {
     const {
       firstName,

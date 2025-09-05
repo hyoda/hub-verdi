@@ -12,7 +12,8 @@
     "cors": "^2.8.5",
     "nodemailer": "^6.9.7",
     "helmet": "^7.0.0",
-    "express-rate-limit": "^6.10.0"
+    "express-rate-limit": "^6.10.0",
+    "dotenv": "^16.3.1"
   },
   "keywords": ["api", "membership", "signup"],
   "author": "Hub Verdi",
