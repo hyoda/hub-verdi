@@ -164,35 +164,10 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 정대표의 오토플랜. All rights reserved.</p>
+            <p>&copy; 2025 정대표의 오토플랜. All rights reserved.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        document.getElementById('membership-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 필수 동의 체크
-            const privacyAgree = document.getElementById('privacy-agree').checked;
-            if (!privacyAgree) {
-                alert('개인정보 수집 및 이용에 동의해주세요.');
-                return;
-            }
-            
-            // 폼 데이터 수집
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            // 실제 구현에서는 서버로 데이터를 전송
-            console.log('가입 신청 데이터:', data);
-            
-            // 성공 메시지
-            alert('🎉 공동체 참여 신청이 완료되었습니다!\n\n24시간 내에 담당자가 연락드려 상세 안내를 해드립니다.\n감사합니다!');
-            
-            // 폼 초기화 (선택적)
-            // this.reset();
-        });
-    </script>
 </body>
 </html>
