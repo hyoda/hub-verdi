@@ -1,0 +1,2 @@
+# Netlify redirects
+/signup-success /thanks.html 200
