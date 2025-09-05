@@ -34,7 +34,7 @@
                 </div>
             </div>
 
-            <form id="membership-form" name="membership-signup" method="POST" data-netlify="true" action="/thanks.html">
+            <form id="membership-form" name="membership-signup">
                 <h2 style="text-align: center; margin-bottom: 30px; color: #2c5530;">공동체 참여 신청</h2>
                 
                 <div class="form-row">
@@ -169,5 +169,48 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        document.getElementById('membership-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Submit button
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = '전송 중...';
+            
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                // Send to API
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Success - redirect to thank you page
+                    window.location.href = '/thanks.html';
+                } else {
+                    // Error
+                    alert('오류: ' + (result.error || '알 수 없는 오류가 발생했습니다.'));
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
+            }
+        });
+    </script>
 </body>
 </html>
