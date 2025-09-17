@@ -42,8 +42,8 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Membership signup endpoint
-app.post('/signup', limiter, async (req, res) => {
+// API routes with /api prefix
+app.post('/api/signup', limiter, async (req, res) => {
   try {
     const {
       firstName,
@@ -56,13 +56,63 @@ app.post('/signup', limiter, async (req, res) => {
       experience,
       motivation,
       challenges,
-      'privacy-agree': privacyAgree
+      'privacy-agree': privacyAgree,
+      type,
+      source
     } = req.body;
 
-    // Validation
+    // Newsletter subscription validation
+    if (type === 'newsletter_subscription') {
+      if (!email) {
+        return res.status(400).json({
+          error: '이메일 주소를 입력해주세요.'
+        });
+      }
+
+      if (!email.includes('@')) {
+        return res.status(400).json({
+          error: '올바른 이메일 주소를 입력해주세요.'
+        });
+      }
+
+      // Send newsletter subscription email
+      const mailOptions = {
+        from: process.env.EMAIL_USER || 'noreply@autoplan.hyoda.kr',
+        to: 'hdseo@devmine.co.kr',
+        subject: `[오토플랜] 뉴스레터 구독 신청 - ${email}`,
+        html: `
+          <h2>📧 새로운 뉴스레터 구독 신청</h2>
+          <p><strong>신청일시:</strong> ${new Date().toLocaleString('ko-KR')}</p>
+          <p><strong>이메일:</strong> ${email}</p>
+          <p><strong>소스:</strong> ${source || '미확인'}</p>
+
+          <hr>
+          <p style="color: #666; font-size: 0.9rem;">
+            * 이 이메일은 autoplan.hyoda.kr 뉴스레터 구독 폼에서 자동으로 발송되었습니다.
+          </p>
+        `
+      };
+
+      try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Newsletter subscription email sent: ${email}`);
+      } catch (emailError) {
+        console.error('Newsletter email sending failed:', emailError.message);
+        console.log(`Manual review needed: Newsletter subscription ${email} - ${new Date().toISOString()}`);
+      }
+
+      console.log(`New newsletter subscription: ${email} at ${new Date().toISOString()}`);
+
+      return res.json({
+        success: true,
+        message: '뉴스레터 구독이 완료되었습니다.'
+      });
+    }
+
+    // Membership signup validation
     if (!firstName || !phone || !email || !privacyAgree) {
-      return res.status(400).json({ 
-        error: '필수 항목을 모두 입력해주세요.' 
+      return res.status(400).json({
+        error: '필수 항목을 모두 입력해주세요.'
       });
     }
 
