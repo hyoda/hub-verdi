@@ -14,6 +14,264 @@
     <link rel="canonical" href="https://autoplan.hyoda.kr/membership.html">
     <link rel="stylesheet" href="styles.css">
     
+    <!-- Story Modal Styles -->
+    <style>
+        .story-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .story-modal-content {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            height: 90vh;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .story-header {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .story-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .close-story {
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            line-height: 1;
+        }
+
+        .close-story:hover {
+            opacity: 0.7;
+        }
+
+        .story-container {
+            height: calc(100% - 80px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .story-navigation {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .story-navigation button {
+            background: #2c5530;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .story-navigation button:hover:not(:disabled) {
+            background: #1e3a22;
+        }
+
+        .story-navigation button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        #storyCounter {
+            font-weight: 600;
+            color: #2c5530;
+            font-size: 1.1rem;
+        }
+
+        .story-content {
+            flex: 1;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .story-page {
+            display: none;
+            padding: 40px 50px;
+            height: 100%;
+            overflow-y: auto;
+        }
+
+        .story-page.active {
+            display: block;
+        }
+
+        .story-title {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .story-title h3 {
+            color: #2c5530;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .story-author {
+            color: #666;
+            font-size: 1.1rem;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .story-text {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .story-text p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .story-text h4 {
+            color: #2c5530;
+            font-size: 1.4rem;
+            margin: 40px 0 20px 0;
+            padding-left: 20px;
+            border-left: 4px solid #2c5530;
+        }
+
+        .story-text strong {
+            color: #2c5530;
+            font-weight: 700;
+        }
+
+        .story-text ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .story-text li {
+            margin-bottom: 10px;
+        }
+
+        /* Scrollbar styling */
+        .story-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .story-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .story-content::-webkit-scrollbar-thumb {
+            background: #2c5530;
+            border-radius: 4px;
+        }
+
+        .story-content::-webkit-scrollbar-thumb:hover {
+            background: #1e3a22;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .story-modal-content {
+                width: 95%;
+                height: 95vh;
+                margin: 2.5% auto;
+            }
+
+            .story-header {
+                padding: 15px 20px;
+            }
+
+            .story-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .story-navigation {
+                padding: 10px 20px;
+            }
+
+            .story-navigation button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+
+            .story-page {
+                padding: 20px 25px;
+            }
+
+            .story-title h3 {
+                font-size: 1.6rem;
+            }
+
+            .story-text {
+                font-size: 1rem;
+            }
+
+            .story-text h4 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Page turn animation */
+        .story-page {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Reading progress indicator */
+        .story-content::before {
+            content: '';
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #2c5530 0%, #4a7c59 100%);
+            z-index: 10;
+        }
+    </style>
+    
     <!-- JSON-LD 구조화된 데이터 -->
     <script type="application/ld+json">
     {
@@ -289,7 +547,7 @@
             <div class="container">
                 <h2>함께 만들어가는 지역의 미래</h2>
                 <p>김포에서 시작된 작은 만남이 더 많은 지역으로 확산되어, 지역 경제가 스스로 살아날 수 있는 씨앗이 되기를 바랍니다.</p>
-                <a href="membership.html" class="cta-button">우리의 이야기 더 알아보기</a>
+                <a href="#" class="cta-button" onclick="openStoryModal()">우리의 이야기 더 알아보기</a>
             </div>
         </section>
     </main>
@@ -300,6 +558,186 @@
         </div>
     </footer>
 
+    <!-- Story Modal -->
+    <div id="storyModal" class="story-modal">
+        <div class="story-modal-content">
+            <div class="story-header">
+                <h2>우리의 이야기</h2>
+                <span class="close-story" onclick="closeStoryModal()">&times;</span>
+            </div>
+            <div class="story-container">
+                <div class="story-navigation">
+                    <button id="prevBtn" onclick="previousStory()" disabled>← 이전</button>
+                    <span id="storyCounter">1 / 2</span>
+                    <button id="nextBtn" onclick="nextStory()">다음 →</button>
+                </div>
+                <div class="story-content">
+                    <!-- Story 1: 서효다 대표의 관점 -->
+                    <div class="story-page active" id="story1">
+                        <div class="story-title">
+                            <h3>지역의 작은 인연이 만들어낸 선순환의 서사</h3>
+                            <p class="story-author">서효다 대표의 관점</p>
+                        </div>
+                        <div class="story-text">
+                            <p>김포에 정착한 지도 벌써 3년. 나는 그저 교통 체증에서 벗어나 저녁이 있는 삶을 꿈꾸며 이곳에 둥지를 틀었다. 하지만 현실은 녹록지 않았다. 20년차 개발자라는 이력은 서울 강남에서는 힘을 발휘했지만, 지역에서는 아무런 효력이 없었다. 일거리를 찾아야만 했던 나는 여전히 온라인 플랫폼을 전전하거나, 서울을 오가며, 때로는 미국까지 발걸음을 옮겨야 했다. 지역살이를 자처했지만, 정작 지역에서는 설 자리가 없었다.</p>
+                            
+                            <p>그러던 어느 날, 뜻밖의 인연이 찾아왔다. 같은 아파트 위아래층에 살던 정대표. 오픈마켓, 특히 쿠팡에서 놀라운 성과를 올리던 사업가였다. 그는 타고난 셀러였고, 상품을 보는 눈과 사람의 심리를 파악하는 감각이 남달랐다. 월 매출이 억 단위로 오르내렸고, 마진율도 범상치 않았다. 나는 그의 곁에서 프로그램을 만들어 달라는 부탁을 받았고, 그렇게 우리의 협업은 시작되었다.</p>
+
+                            <h4>작은 프로그램이 열어준 문</h4>
+                            <p>처음에는 단순했다. 상품을 자동으로 등록하는 솔루션 하나. 길어야 한 달이면 끝날 것 같은 프로젝트였다. 그러나 현실은 달랐다. 예상치 못한 기술적·환경적 제약이 발목을 잡았고, 일정은 늘어졌다. 하지만 이상하게도 힘겹지 않았다. 나는 새로운 도메인 지식을 배우며, 현장의 문제를 함께 고민했고, 정대표는 내 결과물을 성심껏 받아주었다. 그렇게 프로그램은 조금씩 형태를 갖추어 갔고, 마침내 실전 배치에 성공했다.</p>
+
+                            <p>그 순간을 나는 아직도 기억한다. 단순한 자동화 도구가 비용 절감과 효율 증대로 이어지고, 매출이 뛰어오르던 장면. 정대표의 얼굴에 번지던 환한 미소는, 그동안 지역에서 잊고 있던 <strong>개발자로서의 자부심</strong>을 다시금 불러일으켰다.</p>
+
+                            <h4>가치의 발견</h4>
+                            <p>그러나 시간이 지나면서 놀라운 사실을 알게 되었다. 같은 프로그램임에도, 누가 사용하느냐에 따라 결과가 천차만별이었다. 어떤 이는 수억 원의 매출을 기록했지만, 또 어떤 이는 엄두조차 내지 못했다. 그때 나는 깨달았다. <strong>프로그램의 가치는 완성도의 문제가 아니라, 누가 어떻게 쓰느냐의 문제</strong>라는 것을.</p>
+
+                            <p>이 깨달음은 내 시각을 바꾸어 놓았다. 범용적인 솔루션을 다수에게 파는 것이 아니라, 진정으로 필요로 하고 잘 활용할 수 있는 사용자에게 집중하는 것. 정대표가 바로 그 대상이었고, 그의 성공은 우리의 관계를 더 단단하게 엮어주었다.</p>
+
+                            <h4>커뮤니티의 싹</h4>
+                            <p>입소문은 빠르게 퍼졌다. 정대표와 가까운 사람들 사이에 프로그램의 존재가 알려지고, 소정의 개발비와 유지비를 기반으로 고도화 작업이 이어졌다. 정대표는 프로그램을 누구보다 창의적으로 활용했고, 때로는 의도치 않은 기능까지 발견해내며 새로운 가능성을 보여주었다.</p>
+
+                            <p>그 과정에서 나는 또 다른 현상을 목도했다. 정대표의 주변으로 사람들이 하나둘 모여들기 시작한 것이다. 누군가는 상품 상세페이지 제작을 돕고, 누군가는 지식재산권 문제를 해결해주었다. 금전 거래가 없어도 각자의 전문성이 오갔고, 자연스레 정보의 비대칭이 해소되었다. 그것은 단순한 비즈니스 협력이 아니라, <strong>진짜 커뮤니티의 태동</strong>이었다.</p>
+
+                            <p>심지어 우리는 함께 중국 광저우로 비즈니스 워크숍을 다녀오기도 했다. 그 여정 속에서 미래를 그리는 대화가 오갔고, 서로의 꿈과 비전이 공유되었다. 돌아와 보니 김포의 작은 상가에는 공실이 하나둘 채워지고, 주변은 새로운 활기로 가득했다.</p>
+
+                            <h4>작은 인연에서 지역 모델로</h4>
+                            <p>문득 나는 생각했다. 이것은 단순히 우연과 인연이 만들어낸 현상일까? 아니면 자생적으로 형성된 하나의 비즈니스 모델일까?</p>
+
+                            <p>정대표를 중심으로 형성된 이 커뮤니티는 작은 생태계처럼 작동하고 있었다. 오너는 비전을 제시했고, 나는 조력자로서 시스템을 다졌으며, 멤버들은 서로의 전문성을 나누며 협업했다. 돈으로만 환산되지 않는 가치가 오갔고, 그 과정에서 신뢰와 로열티가 자라났다.</p>
+
+                            <p>나는 깨달았다. 이것은 단순한 프로젝트의 부산물이 아니라, <strong>지역사회의 문제를 풀 수 있는 하나의 방법</strong>일 수 있다는 것을.</p>
+
+                            <h4>자동화와 AI, 그리고 선순환</h4>
+                            <p>그러나 성공한 사업가의 역설은 늘 존재한다. 시스템을 갖추지 못하면, 결국 시간에 쫓겨 잉여력을 만들 수 없다. 그래서 우리는 자동화된 워크플로우와 AI를 도구로 삼았다. 덕분에 오너는 비전과 영향력 확장에 집중할 수 있었고, 조력자는 시스템을 고도화하며 기반을 다졌다. 멤버들은 참여와 협업을 통해 서로의 성장을 이끌어냈다.</p>
+
+                            <p>이 흐름은 김포라는 작은 지역에서 시작되었지만, 만약 다른 지역으로 확산된다면? 그것은 단순한 몇몇 사람의 성공이 아니라, <strong>지역 경제 전체를 되살리는 불씨</strong>가 될 것이다.</p>
+
+                            <h4>맺으며</h4>
+                            <p>돌이켜보면 모든 것은 작은 만남 하나에서 시작되었다. 누군가의 필요를 돕고자 한 진심, 그리고 그 도움을 받은 사람이 또 다른 이에게 손을 내민 과정. 그것이 선순환이 되었고, 김포의 골목과 상가, 사람들의 마음에 새로운 활기를 불어넣었다.</p>
+
+                            <p>나는 이제 확신한다. 이 모델은 단순한 성공담이 아니다. 그것은 지역이 스스로 살아날 수 있는 가능성의 씨앗이다. 그리고 그 씨앗은 이미 뿌리내리고 있다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Story 2: 정대표의 관점 -->
+                    <div class="story-page" id="story2">
+                        <div class="story-title">
+                            <h3>나의 이야기, 그리고 김포에서 시작된 변화</h3>
+                            <p class="story-author">정대표의 관점</p>
+                        </div>
+                        <div class="story-text">
+                            <p>나는 늘 사람들의 흐름을 읽는 데 능했다. 세상은 언제나 변했고, 소비자들의 마음도 시시각각 달라졌다. 나는 그것을 본능적으로 알아차렸고, 그 덕에 쿠팡을 비롯한 오픈마켓에서 꽤 성과를 냈다. 상품을 소싱하고, 가격을 맞추고, 트렌드를 재빨리 읽어내는 일은 나에게 숨 쉬듯 자연스러웠다. 매출은 억 단위로 오르내렸고, 남들 눈에는 '천재적인 리셀러'라 불리기도 했다.</p>
+
+                            <p>하지만 내 안에는 늘 갈증이 있었다. 아이디어와 전략은 무궁무진했지만, 시간이 없었다. 내 머릿속 구상은 산더미처럼 쌓였고, 두 손은 이미 포화 상태였다. 아무리 감각이 뛰어나도, 나 혼자 할 수 있는 일에는 한계가 있었다. 시스템이 필요했다.</p>
+
+                            <h4>개발자와의 만남</h4>
+                            <p>그 무렵, 지인이 같은 아파트에 사는 개발자를 소개해줬다. "가까운 데 사시고, 성실하고, 무엇보다 실전형." 처음엔 그냥 이웃 정도로만 알던 사람이었다. 같은 아파트에 살면서 가볍게 인사를 나누던, 그저 그런 이웃. 그런데 그가 20년차 개발자라니. 나는 호기심이 생겼고, 마침 마음속에 품고 있던 문제를 털어놓았다.</p>
+
+                            <p>"상품을 등록하는 시간을 줄일 수 없을까요? 내가 찾고 싶은 상품을 딱 올려두면, 자동으로 쇼핑몰에 올라가는 식으로요."</p>
+
+                            <p>처음 요청은 소박했다. <strong>상품 등록을 자동화</strong>할 수 있는 작은 프로그램. 2주면 된다는 말에 가볍게 시작했다. 그러나 현장은 늘 계획을 바꾼다. 플랫폼 제약, 환경 차이, 예상 못한 사례들… 일정은 길어졌다. 대신 서로 배우는 속도는 붙었다. 나는 내 업무의 '맨 뒷골목'까지 꺼내놓고, 그는 그 골목마다 길을 냈다. 결국 첫 배치는 안정적으로 끝났다.</p>
+
+                            <h4>도구의 가치, '사용'에서 증명되다</h4>
+                            <p>자동화 솔루션의 핵심은 단순했다. <strong>찾고 → 정리하고 → 올리는 일</strong>을 기계가 하게 만드는 것. 효과는 즉각적이었다. 내 시간을 갉아먹던 단순 반복 업무가 줄어드니, 나는 더 중요한 전략과 소싱에 집중할 수 있었다. 매출은 상승 곡선을 그렸고, 효율은 극대화되었다.</p>
+
+                            <p>그보다 더 흥미로운 건, 이 도구가 단순한 '프로그램'이 아니라는 사실이었다. 나는 의도치 않게 새로운 기능을 발견하기도 했고, 나만의 방식으로 응용하기도 했다. 도구는 내 손에서 생명력을 얻었고, 나는 그것을 누구보다 잘 다루는 사용자였다. "이 버튼을 이렇게 돌리면 이런 결과가 나오네?" 작은 발견들이 모여 성과가 커졌다. 이때부터 내 관심은 "무엇을 만들었나"가 아니라 <strong>"어떻게 쓰고 있나"</strong>로 옮겨갔다.</p>
+
+                            <h4>확산되는 파급력</h4>
+                            <p>나 혼자만의 비밀 병기일 줄 알았던 이 프로그램은, 곧 주변 사람들의 눈에 띄기 시작했다. 친구, 지인, 같은 업계 사람들. 누구나 내 성과를 보며 궁금해했다. "대체 어떻게 그렇게 빠르게 상품을 올리고, 그렇게 매출을 끌어올리는 거냐?"</p>
+
+                            <p>나는 숨기지 않았다. 오히려 공유했다. 누군가는 내게 멘토링을 요청했고, 누군가는 프로그램 사용을 부탁했다. 그 과정에서 뜻밖에도 사람들 사이에 <strong>서로 돕는 문화</strong>가 싹트기 시작했다.</p>
+
+                            <p>영화미술감독 출신의 지인은 상세페이지 제작에 도움을 주기도 하고, 또 다른 지인은 내가 모르는 상표권 문제를 잘 알고 있었다. 그들은 내게 도움을 주었고, 나는 이들과 내 노하우를 공유했다. 돈으로만 설명되지 않는 교환이 이루어졌다. 내 사무실이 위치한 같은 층에는 지인들의 사무실이 하나둘 생겨났다. 지인의 요청으로 서대표와 함께 김포를 벗어나 타지역에 방문하여 프로그램을 알리고, 설치하고, 고치고, 더 나은 방법을 찾아줬다.</p>
+
+                            <h4>광저우에서 그린 미래</h4>
+                            <p>기억난다. 몇몇 이들과 함께 중국 광저우로 다녀온 5박6일. 처음에는 단순한 출장 겸 워크숍이었지만, 그곳에서 우리는 서로의 앞날을 이야기했다. 누구는 브랜드를 꿈꾸었고, 누구는 더 큰 시장을 말했다. 나는 그 자리에 앉아 생각했다.</p>
+
+                            <p>'이건 단순히 내 사업이 아니다. 이건, 함께 만들어가는 미래다.' 그 과정에서 자연스러운 규칙이 생겼다.</p>
+
+                            <ul>
+                                <li>잘하는 사람은 <strong>나눴고</strong>,</li>
+                                <li>필요한 사람은 <strong>인정하고 배웠다.</strong></li>
+                            </ul>
+
+                            <p>영화미술감독 출신의 지인은 상세페이지 제작에 도움을 주기도 하고, 또 다른 지인은 내가 모르는 상표권 문제를 잘 알고 있었다. 그들은 내게 도움을 주었고, 나는 이들과 내 노하우를 공유했다. 돈으로만 설명되지 않는 교환이 이루어졌다. 김포의 한산했던 사무공간이 그렇게 조금씩 살아나고 있었다. <strong>돈이 오가지 않아도 생기는 신뢰</strong>가 있었다. 내 곁에는 이제 단순한 고객이나 사용자들이 아니라, <strong>함께 성장하는 동료</strong>들이 있었다.</p>
+
+                            <h4>깨달음</h4>
+                            <p>나는 알게 되었다. 성공은 혼자의 힘으로는 불가능하다는 것. 그리고 지역의 문제는 거대한 정책이나 외부의 지원이 아니라, 작은 인연과 협력에서부터 풀리기 시작한다는 것.</p>
+
+                            <p>처음에는 단순히 프로그램 하나였다. 하지만 그 프로그램은 사람들을 불러모았고, 경험과 전문성이 오갔고, 신뢰가 쌓였다. 우리는 어느새 이너서클이 되어 있었다.</p>
+
+                            <p>오너인 나는 비전을 품었고, 조력자인 개발자는 시스템을 다졌으며, 멤버들은 서로의 힘이 되어주었다. 자동화와 AI라는 도구는 그 과정을 뒷받침했고, 우리는 더 큰 꿈을 꿀 수 있게 되었다.</p>
+
+                            <h4>나의 확신</h4>
+                            <p>나는 이제 확신한다. 김포에서 시작된 이 모델은 단순한 성공담이 아니다. 이것은 <strong>지역 경제 생태계가 스스로 살아날 수 있는 씨앗</strong>이다. 작은 만남이 만들어낸 선순환이, 결국 한 지역을 바꾸고, 더 나아가 다른 지역까지 물들일 수 있다.</p>
+
+                            <p>내가 얻은 교훈은 단순하다. "혼자가 아니라, 함께라면." 그리고 그 시작은 언제나 <strong>작은 인연에서 비롯된다.</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script>
+        let currentStory = 1;
+        const totalStories = 2;
+
+        function openStoryModal() {
+            document.getElementById('storyModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function nextStory() {
+            if (currentStory < totalStories) {
+                document.getElementById(`story${currentStory}`).classList.remove('active');
+                currentStory++;
+                document.getElementById(`story${currentStory}`).classList.add('active');
+                updateNavigation();
+            }
+        }
+
+        function previousStory() {
+            if (currentStory > 1) {
+                document.getElementById(`story${currentStory}`).classList.remove('active');
+                currentStory--;
+                document.getElementById(`story${currentStory}`).classList.add('active');
+                updateNavigation();
+            }
+        }
+
+        function updateNavigation() {
+            document.getElementById('storyCounter').textContent = `${currentStory} / ${totalStories}`;
+            document.getElementById('prevBtn').disabled = currentStory === 1;
+            document.getElementById('nextBtn').disabled = currentStory === totalStories;
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('storyModal');
+            if (event.target === modal) {
+                closeStoryModal();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (document.getElementById('storyModal').style.display === 'block') {
+                if (event.key === 'ArrowLeft') {
+                    previousStory();
+                } else if (event.key === 'ArrowRight') {
+                    nextStory();
+                } else if (event.key === 'Escape') {
+                    closeStoryModal();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
