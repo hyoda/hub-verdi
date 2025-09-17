@@ -738,6 +738,13 @@
                 }
             }
         });
+
+        // Auto-open story modal when page loads
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                openStoryModal();
+            }, 500); // 0.5초 후 모달 열기 (페이지 로딩 완료 후)
+        });
     </script>
 </body>
 </html>
