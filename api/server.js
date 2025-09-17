@@ -199,6 +199,7 @@ app.use('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Hub Verdi API Server running on port ${PORT}`);
   console.log(`📧 Email configured: ${process.env.EMAIL_USER ? 'Yes' : 'No (using default)'}`);
+  console.log(`⏰ Server started at: ${new Date().toISOString()}`);
 });
 
 module.exports = app;
