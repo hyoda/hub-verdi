@@ -168,26 +168,49 @@
         /* 반응형 */
         @media (max-width: 768px) {
             .enhanced-cta-button {
-                padding: 18px 25px;
-                font-size: 1rem;
-                flex-direction: column;
-                gap: 10px;
-                text-align: center;
+                padding: 12px 18px;
+                font-size: 0.9rem;
+                flex-direction: row;
+                gap: 8px;
+                text-align: left;
             }
 
             .cta-text {
-                align-items: center;
+                align-items: flex-start;
+            }
+
+            .cta-main {
+                font-size: 0.9rem;
+            }
+
+            .cta-sub {
+                font-size: 0.75rem;
+            }
+
+            .cta-icon {
+                font-size: 1.2rem;
             }
 
             .floating-cta {
-                bottom: 20px;
-                right: 20px;
-                left: 20px;
+                bottom: 15px;
+                right: 15px;
+                left: auto;
+                max-width: 280px;
             }
 
             .floating-cta .enhanced-cta-button {
-                width: 100%;
-                justify-content: center;
+                width: auto;
+                justify-content: flex-start;
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+
+            .floating-cta .cta-main {
+                font-size: 0.85rem;
+            }
+
+            .floating-cta .cta-sub {
+                font-size: 0.7rem;
             }
         }
     </style>
