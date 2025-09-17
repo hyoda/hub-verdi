@@ -19,12 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
     navContainer.appendChild(navToggle);
     
     navToggle.addEventListener('click', function() {
-        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        if (window.innerWidth <= 768) {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        }
     });
     
-    // Close menu when clicking outside
+    // Close menu when clicking outside (mobile only)
     document.addEventListener('click', function(e) {
-        if (!navContainer.contains(e.target)) {
+        if (window.innerWidth <= 768 && !navContainer.contains(e.target)) {
             navMenu.style.display = 'none';
         }
     });
@@ -212,6 +214,15 @@ style.textContent = `
         text-align: center;
     }
     
+    /* Desktop navigation - always visible */
+    .nav-menu {
+        display: flex;
+    }
+    
+    .mobile-menu-toggle {
+        display: none;
+    }
+    
     @media (max-width: 768px) {
         .nav-menu {
             display: none;
@@ -226,23 +237,39 @@ style.textContent = `
             color: #2c5530;
         }
     }
-    
-    .mobile-menu-toggle {
-        display: none;
-    }
 `;
 document.head.appendChild(style);
 
-// Add mobile menu toggle functionality
-const navContainer = document.querySelector('.nav-container');
-if (navContainer && window.innerWidth <= 768) {
-    const menuToggle = document.createElement('button');
-    menuToggle.className = 'mobile-menu-toggle';
-    menuToggle.innerHTML = '☰';
-    menuToggle.addEventListener('click', function() {
-        const navMenu = document.querySelector('.nav-menu');
-        navMenu.classList.toggle('mobile-open');
-        this.innerHTML = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
-    });
-    navContainer.appendChild(menuToggle);
+// Add mobile menu toggle functionality (only for mobile)
+function addMobileMenuToggle() {
+    const navContainer = document.querySelector('.nav-container');
+    if (navContainer && window.innerWidth <= 768) {
+        // Remove existing toggle if any
+        const existingToggle = navContainer.querySelector('.mobile-menu-toggle');
+        if (existingToggle) {
+            existingToggle.remove();
+        }
+        
+        const menuToggle = document.createElement('button');
+        menuToggle.className = 'mobile-menu-toggle';
+        menuToggle.innerHTML = '☰';
+        menuToggle.addEventListener('click', function() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('mobile-open');
+            this.innerHTML = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
+        });
+        navContainer.appendChild(menuToggle);
+    } else {
+        // Remove mobile toggle on desktop
+        const existingToggle = navContainer.querySelector('.mobile-menu-toggle');
+        if (existingToggle) {
+            existingToggle.remove();
+        }
+    }
 }
+
+// Initialize mobile menu toggle
+addMobileMenuToggle();
+
+// Re-initialize on window resize
+window.addEventListener('resize', addMobileMenuToggle);
