@@ -42,8 +42,8 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// API routes with /api prefix
-app.post('/api/signup', limiter, async (req, res) => {
+// Signup endpoint (accessed via nginx proxy as /signup)
+app.post('/signup', limiter, async (req, res) => {
   try {
     const {
       firstName,
