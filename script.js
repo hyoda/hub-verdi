@@ -1,13 +1,22 @@
-// Mobile navigation toggle
-document.addEventListener('DOMContentLoaded', function() {
-    // 컴포넌트 로더가 완료될 때까지 기다림
-    waitForComponentsAndInitialize();
-});
+// Mobile navigation toggle - 중복 초기화 방지
+if (typeof window.mobileNavInitialized === 'undefined') {
+    window.mobileNavInitialized = false;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // 컴포넌트 로더가 완료될 때까지 기다림
+        if (!window.mobileNavInitialized) {
+            waitForComponentsAndInitialize();
+        }
+    });
+}
 
 function waitForComponentsAndInitialize() {
     // 컴포넌트 로더가 존재하고 네비게이션이 로드되었는지 확인
     if (window.componentLoader && document.querySelector('.nav-menu') && document.querySelector('.nav-container')) {
-        initializeMobileNavigation();
+        if (!window.mobileNavInitialized) {
+            initializeMobileNavigation();
+            window.mobileNavInitialized = true;
+        }
     } else {
         // 컴포넌트가 로드될 때까지 기다림
         setTimeout(waitForComponentsAndInitialize, 50);
@@ -24,14 +33,21 @@ function initializeMobileNavigation() {
         console.log('네비게이션 요소를 찾을 수 없습니다.');
         return;
     }
-    
+
+    // 이미 모바일 메뉴 토글 버튼이 존재하는지 확인
+    let navToggle = navContainer.querySelector('.mobile-menu-toggle');
+    if (navToggle) {
+        console.log('모바일 메뉴 토글 버튼이 이미 존재합니다.');
+        return;
+    }
+
     console.log('네비게이션 요소를 찾았습니다. 모바일 메뉴를 초기화합니다.');
-    
-    const navToggle = document.createElement('button');
+
+    navToggle = document.createElement('button');
     navToggle.className = 'mobile-menu-toggle';
     navToggle.innerHTML = '☰';
     navToggle.setAttribute('aria-label', '메뉴 열기');
-    
+
     navContainer.appendChild(navToggle);
     
     navToggle.addEventListener('click', function() {
