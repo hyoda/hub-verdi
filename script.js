@@ -28,39 +28,31 @@ function initializeMobileNavigation() {
     console.log('네비게이션 요소를 찾았습니다. 모바일 메뉴를 초기화합니다.');
     
     const navToggle = document.createElement('button');
-    navToggle.className = 'nav-toggle';
+    navToggle.className = 'mobile-menu-toggle';
     navToggle.innerHTML = '☰';
-    navToggle.style.cssText = `
-        display: none;
-        background: none;
-        border: none;
-        font-size: 1.5rem;
-        color: #2c5530;
-        cursor: pointer;
-        padding: 10px;
-    `;
+    navToggle.setAttribute('aria-label', '메뉴 열기');
     
     navContainer.appendChild(navToggle);
     
     navToggle.addEventListener('click', function() {
         if (window.innerWidth <= 768) {
-            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            navMenu.classList.toggle('mobile-open');
         }
     });
     
     // Close menu when clicking outside (mobile only)
     document.addEventListener('click', function(e) {
         if (window.innerWidth <= 768 && !navContainer.contains(e.target)) {
-            navMenu.style.display = 'none';
+            navMenu.classList.remove('mobile-open');
         }
     });
     
     // Close menu when window is resized to desktop
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
-            navMenu.style.display = 'flex';
+            navMenu.classList.remove('mobile-open');
         } else {
-            navMenu.style.display = 'none';
+            navMenu.classList.remove('mobile-open');
         }
     });
     
@@ -68,10 +60,10 @@ function initializeMobileNavigation() {
     function toggleMobileMenu() {
         if (window.innerWidth <= 768) {
             navToggle.style.display = 'block';
-            navMenu.style.display = 'none';
+            navMenu.classList.remove('mobile-open');
         } else {
             navToggle.style.display = 'none';
-            navMenu.style.display = 'flex';
+            navMenu.classList.remove('mobile-open');
         }
     }
     
