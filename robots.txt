@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /tasks/
+Disallow: /cursor-rules/
+Disallow: /_redirects
+
+# Sitemap
+Sitemap: https://autoplan.hyoda.kr/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
