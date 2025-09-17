@@ -1,7 +1,32 @@
 // Mobile navigation toggle
 document.addEventListener('DOMContentLoaded', function() {
+    // 컴포넌트 로더가 완료될 때까지 기다림
+    waitForComponentsAndInitialize();
+});
+
+function waitForComponentsAndInitialize() {
+    // 컴포넌트 로더가 존재하고 네비게이션이 로드되었는지 확인
+    if (window.componentLoader && document.querySelector('.nav-menu') && document.querySelector('.nav-container')) {
+        initializeMobileNavigation();
+    } else {
+        // 컴포넌트가 로드될 때까지 기다림
+        setTimeout(waitForComponentsAndInitialize, 50);
+    }
+}
+
+function initializeMobileNavigation() {
     // Mobile navigation toggle
     const navMenu = document.querySelector('.nav-menu');
+    const navContainer = document.querySelector('.nav-container');
+
+    // 요소들이 존재하지 않으면 함수 종료
+    if (!navMenu || !navContainer) {
+        console.log('네비게이션 요소를 찾을 수 없습니다.');
+        return;
+    }
+    
+    console.log('네비게이션 요소를 찾았습니다. 모바일 메뉴를 초기화합니다.');
+    
     const navToggle = document.createElement('button');
     navToggle.className = 'nav-toggle';
     navToggle.innerHTML = '☰';
@@ -15,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
         padding: 10px;
     `;
     
-    const navContainer = document.querySelector('.nav-container');
     navContainer.appendChild(navToggle);
     
     navToggle.addEventListener('click', function() {
@@ -53,7 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     toggleMobileMenu();
     window.addEventListener('resize', toggleMobileMenu);
-    // Smooth scrolling for anchor links
+}
+
+// Smooth scrolling for anchor links
+document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -240,36 +267,5 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Add mobile menu toggle functionality (only for mobile)
-function addMobileMenuToggle() {
-    const navContainer = document.querySelector('.nav-container');
-    if (navContainer && window.innerWidth <= 768) {
-        // Remove existing toggle if any
-        const existingToggle = navContainer.querySelector('.mobile-menu-toggle');
-        if (existingToggle) {
-            existingToggle.remove();
-        }
-        
-        const menuToggle = document.createElement('button');
-        menuToggle.className = 'mobile-menu-toggle';
-        menuToggle.innerHTML = '☰';
-        menuToggle.addEventListener('click', function() {
-            const navMenu = document.querySelector('.nav-menu');
-            navMenu.classList.toggle('mobile-open');
-            this.innerHTML = navMenu.classList.contains('mobile-open') ? '✕' : '☰';
-        });
-        navContainer.appendChild(menuToggle);
-    } else {
-        // Remove mobile toggle on desktop
-        const existingToggle = navContainer.querySelector('.mobile-menu-toggle');
-        if (existingToggle) {
-            existingToggle.remove();
-        }
-    }
-}
-
-// Initialize mobile menu toggle
-addMobileMenuToggle();
-
-// Re-initialize on window resize
-window.addEventListener('resize', addMobileMenuToggle);
+// Note: Mobile menu functionality is now handled by components.js
+// This section can be removed as it's redundant

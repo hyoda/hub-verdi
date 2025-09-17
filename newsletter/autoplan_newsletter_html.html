@@ -12,7 +12,8 @@
     <meta property="og:url" content="https://autoplan.hyoda.kr/newsletter/autoplan_newsletter_html.html">
     <meta property="og:type" content="article">
     <link rel="canonical" href="https://autoplan.hyoda.kr/newsletter/autoplan_newsletter_html.html">
-    
+    <link rel="stylesheet" href="../styles.css">
+
     <!-- JSON-LD 구조화된 데이터 -->
     <script type="application/ld+json">
     {
@@ -51,153 +52,105 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            background: #f8fafc;
             min-height: 100vh;
+            padding-top: 70px; /* 네비게이션 높이만큼 패딩 추가 */
         }
         
-        .navbar {
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 70px;
-        }
-
-        .nav-logo h1 {
-            color: #2c5530;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-menu a:hover {
-            color: #2c5530;
-        }
-
-        .nav-cta-button {
+        /* Navigation styles override for newsletter page */
+        .nav-menu .cta-button {
             background: #2c5530 !important;
             color: white !important;
-            padding: 12px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
+            padding: 12px 24px !important;
+            border-radius: 6px !important;
+            text-decoration: none !important;
+            font-weight: 600 !important;
+            transition: background 0.3s !important;
+            display: inline-block !important;
+            margin-top: 0 !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
-        .nav-cta-button:hover {
+        .nav-menu .cta-button:hover {
             background: #1e3a22 !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .newsletter-container {
+            max-width: 900px;
+            margin: 20px auto;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             overflow: hidden;
-            margin-top: 90px;
-            margin-bottom: 20px;
         }
         
-        .header {
+        .newsletter-header {
             background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
             color: white;
-            padding: 40px 30px;
+            padding: 50px 40px;
             text-align: center;
             position: relative;
-            overflow: hidden;
         }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-            50% { transform: translate(-50%, -50%) rotate(180deg); }
-        }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            font-weight: 500;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .content {
-            padding: 40px 30px;
-        }
-        
-        .section {
-            margin-bottom: 50px;
-            padding: 30px;
-            border-radius: 12px;
-            background: #f8fafc;
-            border-left: 5px solid #2c5530;
-            transition: all 0.3s ease;
-        }
-        
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .section h2 {
-            color: #1e293b;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
+
+        .newsletter-header h1 {
+            font-size: 2.2rem;
             font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .newsletter-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            font-weight: 400;
+            margin-bottom: 0;
+        }
+        
+        .newsletter-content {
+            padding: 50px 50px;
+        }
+
+        .newsletter-section {
+            margin-bottom: 40px;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .newsletter-section h2 {
+            color: #1e293b;
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+            font-weight: 600;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 12px;
+        }
+
+        .newsletter-section p {
+            margin-bottom: 16px;
+            line-height: 1.7;
+            color: #374151;
         }
         
         .intro-section {
             background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
             color: white;
-            border: none;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 50px;
         }
-        
+
         .intro-section h2 {
             color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .intro-section p {
+            color: rgba(255,255,255,0.95);
         }
         
         .story-toggle {
@@ -436,48 +389,180 @@
         }
         
         @media (max-width: 768px) {
-            .nav-menu {
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: white;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-                display: none;
-                padding: 20px 0;
-            }
-            
-            .nav-menu li {
-                margin: 10px 0;
+            body {
+                padding-top: 70px;
             }
 
-            .container {
+            .newsletter-container {
                 margin: 10px;
                 border-radius: 8px;
-                margin-top: 90px;
             }
-            
-            .header {
+
+            .newsletter-header {
                 padding: 30px 20px;
             }
-            
-            .header h1 {
-                font-size: 2rem;
+
+            .newsletter-header h1 {
+                font-size: 1.8rem;
             }
-            
-            .content {
-                padding: 20px;
+
+            .newsletter-content {
+                padding: 30px 20px;
             }
-            
-            .section {
-                padding: 20px;
+
+            .newsletter-section {
+                margin-bottom: 30px;
             }
-            
+
+            .intro-section {
+                padding: 25px 20px;
+            }
+
             .story-toggle {
                 flex-direction: column;
                 gap: 10px;
             }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .subscription-form .form-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .subscription-input {
+                border-radius: 12px;
+            }
+
+            .subscription-button {
+                border-radius: 12px;
+                width: 100%;
+            }
+        }
+
+        /* Newsletter Subscription Styles */
+        .newsletter-subscription {
+            background: linear-gradient(135deg, #f8faf9 0%, #ffffff 100%);
+            padding: 40px;
+            border-radius: 16px;
+            margin: 40px 0;
+            border: 2px solid #e5f3e8;
+            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.1);
+        }
+
+        .newsletter-subscription h3 {
+            color: #1e3a22;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .newsletter-subscription > p {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .subscription-form .form-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            align-items: stretch;
+        }
+
+        .subscription-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .subscription-input:focus {
+            outline: none;
+            border-color: #2c5530;
+            box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+        }
+
+        .subscription-button {
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .subscription-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 85, 48, 0.3);
+        }
+
+        .subscription-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .subscription-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #2d3748;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid #2c5530;
+        }
+
+        .privacy-notice {
+            text-align: center;
+            color: #718096;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .success-message {
+            text-align: center;
+            background: linear-gradient(135deg, #d4edda 0%, #ffffff 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #c3e6cb;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .success-message h4 {
+            color: #155724;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .success-message p {
+            color: #155724;
+            margin: 0;
         }
     </style>
 </head>
@@ -485,29 +570,24 @@
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <div class="nav-logo">
-                    <h1>정대표의 오토플랜</h1>
-                </div>
-        <ul class="nav-menu">
-            <li><a href="../index.html">홈</a></li>
-                    <li><a href="../membership.html">멤버쉽 소개</a></li>
-                    <li><a href="../benefits.html">혜택 & 서비스</a></li>
-                    <li><a href="../programs.html">프로그램</a></li>
-                    <li><a href="autoplan_newsletter_html.html">뉴스레터</a></li>
-                    <li><a href="../signup.html" class="nav-cta-button">멤버쉽 가입</a></li>
-        </ul>
+                <!-- 네비게이션은 components.js에서 동적 로딩 -->
             </div>
         </nav>
     </header>
 
-    <div class="container">
-        <div class="header">
+    <!-- Breadcrumb Navigation -->
+    <div id="breadcrumb-container">
+        <!-- 브레드크럼은 components.js에서 동적 로딩 -->
+    </div>
+
+    <div class="newsletter-container">
+        <div class="newsletter-header">
             <h1>🎉 자영업의 르네상스 시대</h1>
-            <p class="subtitle">Autoplan 창간 특집 : 작은 인연이 만든 선순환 실험</p>
+            <p class="newsletter-subtitle">Autoplan 창간 특집 : 작은 인연이 만든 선순환 실험</p>
         </div>
-        
-        <div class="content">
-            <div class="section intro-section">
+
+        <div class="newsletter-content">
+            <div class="newsletter-section intro-section">
                 <h2>🛠️ 서두 – 지역에서 피어난 기술과 감각의 교차점</h2>
                 
                 <div class="photo-container">
@@ -527,7 +607,7 @@
                 <p><strong>이 이야기는 단지 두 사람의 성공담이 아니다. 하나의 지역 기반 실험 모델의 시작이다.</strong></p>
             </div>
             
-            <div class="section">
+            <div class="newsletter-section">
                 <h2>👥 두 개의 시선, 하나의 여정</h2>
                 
                 <div class="story-toggle">
@@ -597,7 +677,7 @@
                 </div>
             </div>
             
-            <div class="section">
+            <div class="newsletter-section">
                 <h2>🌱 커뮤니티의 탄생</h2>
                 
                 <div class="photo-container">
@@ -724,7 +804,7 @@
                 </div>
             </div>
             
-            <div class="section">
+            <div class="newsletter-section">
                 <h2>🌍 실험이 아닌 모델로 — 김포에서, 전국으로</h2>
                 
                 <div class="photo-container">
@@ -794,13 +874,51 @@
                 </ul>
                 
                 <p><strong>이제는, 정책이 응답할 차례다.</strong></p>
-                
+
                 <p>Autoplan 뉴스레터는 이 모델을 계속 추적하고, 확산시키는 아카이브가 될 것이다.</p>
-                
-                <a href="mailto:team@autoplan.hyoda.kr" class="cta-button">뉴스레터 구독하기</a>
+
+                <!-- Newsletter Subscription Form -->
+                <div class="newsletter-subscription" id="newsletter-subscription">
+                    <h3>🔔 뉴스레터 구독하기</h3>
+                    <p>김포 모델의 확산 과정과 지역 비즈니스 인사이트를 정기적으로 받아보세요</p>
+
+                    <form id="newsletter-form" class="subscription-form">
+                        <div class="form-group">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="이메일 주소를 입력하세요"
+                                required
+                                class="subscription-input"
+                            >
+                            <button type="submit" class="subscription-button">
+                                <span class="button-text">구독하기</span>
+                                <span class="button-icon">📧</span>
+                            </button>
+                        </div>
+
+                        <div class="subscription-benefits">
+                            <div class="benefit-item">✅ 월 1회 지역 비즈니스 성공 사례</div>
+                            <div class="benefit-item">✅ AI 자동화 실무 활용법</div>
+                            <div class="benefit-item">✅ 커뮤니티 협업 기회 정보</div>
+                        </div>
+
+                        <div class="privacy-notice">
+                            <small>구독자 정보는 뉴스레터 발송 목적으로만 사용되며, 언제든 구독 해지가 가능합니다.</small>
+                        </div>
+                    </form>
+
+                    <!-- Success Message -->
+                    <div id="subscription-success" class="success-message" style="display: none;">
+                        <div class="success-icon">🎉</div>
+                        <h4>구독 신청이 완료되었습니다!</h4>
+                        <p>첫 번째 뉴스레터를 곧 받아보실 수 있습니다.</p>
+                    </div>
+                </div>
             </div>
             
-            <div class="section">
+            <div class="newsletter-section">
                 <p style="text-align: center; color: #6b7280;"><em>다음 호에서는 김포 모델이 다른 지역으로 확산되는 과정과 구체적인 복제 프레임워크를 다룰 예정입니다.</em></p>
             </div>
         </div>
@@ -859,12 +977,120 @@
         }, observerOptions);
         
         // Observe all sections
-        document.querySelectorAll('.section').forEach(section => {
+        document.querySelectorAll('.newsletter-section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
             section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(section);
         });
+
+        // Newsletter Subscription Form Handler
+        document.getElementById('newsletter-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const buttonText = submitBtn.querySelector('.button-text');
+            const originalText = buttonText.textContent;
+            const emailInput = this.querySelector('#email');
+
+            // Disable button and show loading state
+            submitBtn.disabled = true;
+            buttonText.textContent = '구독 처리 중...';
+
+            try {
+                // Get form data
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+
+                // Add newsletter-specific data
+                data.type = 'newsletter_subscription';
+                data.source = 'autoplan_newsletter';
+                data.timestamp = new Date().toISOString();
+
+                // Send to API (same endpoint as signup but with different type)
+                const response = await fetch('/api/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    // Success - show success message
+                    document.getElementById('newsletter-subscription').style.display = 'none';
+                    document.getElementById('subscription-success').style.display = 'block';
+
+                    // Scroll to success message
+                    document.getElementById('subscription-success').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+
+                    // Track success event (optional)
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'newsletter_subscription', {
+                            'event_category': 'engagement',
+                            'event_label': 'autoplan_newsletter'
+                        });
+                    }
+
+                } else {
+                    // Error from server
+                    alert('오류: ' + (result.error || '구독 처리 중 오류가 발생했습니다.'));
+                }
+
+            } catch (error) {
+                console.error('Newsletter subscription error:', error);
+
+                // Fallback to mailto if API fails
+                const email = emailInput.value;
+                const subject = encodeURIComponent('Autoplan 뉴스레터 구독 신청');
+                const body = encodeURIComponent(`안녕하세요!
+
+Autoplan 뉴스레터 구독을 신청합니다.
+
+이메일: ${email}
+구독일: ${new Date().toLocaleDateString('ko-KR')}
+
+김포 모델의 확산 과정과 지역 비즈니스 인사이트를 정기적으로 받아보고 싶습니다.
+
+감사합니다.`);
+
+                window.location.href = `mailto:team@autoplan.hyoda.kr?subject=${subject}&body=${body}`;
+
+                // Show alternative success message
+                setTimeout(() => {
+                    document.getElementById('newsletter-subscription').style.display = 'none';
+                    document.getElementById('subscription-success').style.display = 'block';
+
+                    // Update success message for mailto fallback
+                    const successMsg = document.querySelector('#subscription-success p');
+                    successMsg.textContent = '이메일 클라이언트가 열렸습니다. 이메일을 보내시면 구독 처리해드리겠습니다.';
+                }, 1000);
+
+            } finally {
+                submitBtn.disabled = false;
+                buttonText.textContent = originalText;
+            }
+        });
+
+        // Email validation enhancement
+        document.getElementById('email').addEventListener('input', function() {
+            const email = this.value;
+            const submitBtn = document.querySelector('.subscription-button');
+
+            if (email && this.checkValidity()) {
+                submitBtn.style.opacity = '1';
+                submitBtn.style.pointerEvents = 'auto';
+            } else {
+                submitBtn.style.opacity = '0.7';
+                submitBtn.style.pointerEvents = 'none';
+            }
+        });
     </script>
+    <script src="../js/components.js"></script>
 </body>
 </html>

@@ -13,7 +13,185 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://autoplan.hyoda.kr/membership.html">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/gallery.css">
     
+    <!-- Enhanced CTA Styles -->
+    <style>
+        .enhanced-cta-container {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .enhanced-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            padding: 20px 35px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow:
+                0 8px 25px rgba(44, 85, 48, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            animation: subtle-pulse 3s ease-in-out infinite;
+        }
+
+        .enhanced-cta-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+            opacity: 0;
+        }
+
+        .enhanced-cta-button:hover::before {
+            animation: shimmer 1.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .enhanced-cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 15px 35px rgba(44, 85, 48, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-icon {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .cta-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.3;
+        }
+
+        .cta-main {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .cta-sub {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .cta-arrow {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            font-weight: bold;
+        }
+
+        .enhanced-cta-button:hover .cta-arrow {
+            transform: translateX(5px);
+        }
+
+        .cta-hint {
+            margin-top: 15px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: float-hint 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtle-pulse {
+            0%, 100% {
+                box-shadow:
+                    0 8px 25px rgba(44, 85, 48, 0.4),
+                    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            }
+            50% {
+                box-shadow:
+                    0 8px 25px rgba(44, 85, 48, 0.6),
+                    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+                    0 0 20px rgba(44, 85, 48, 0.3);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes float-hint {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-3px); }
+        }
+
+        /* 스크롤 시 고정 CTA (선택적) */
+        .floating-cta {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1500;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.4s ease;
+        }
+
+        .floating-cta.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-cta .enhanced-cta-button {
+            padding: 15px 25px;
+            font-size: 0.95rem;
+            border-radius: 12px;
+        }
+
+        .floating-cta .cta-main {
+            font-size: 0.95rem;
+        }
+
+        .floating-cta .cta-sub {
+            font-size: 0.8rem;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .enhanced-cta-button {
+                padding: 18px 25px;
+                font-size: 1rem;
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .cta-text {
+                align-items: center;
+            }
+
+            .floating-cta {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+            }
+
+            .floating-cta .enhanced-cta-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+
     <!-- Story Modal Styles -->
     <style>
         .story-modal {
@@ -305,43 +483,42 @@
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <div class="nav-logo">
-                    <h1>정대표의 오토플랜</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="index.html">홈</a></li>
-                    <li><a href="membership.html">멤버쉽 소개</a></li>
-                    <li><a href="benefits.html">혜택 & 서비스</a></li>
-                    <li><a href="programs.html">프로그램</a></li>
-                    <li><a href="newsletter/autoplan_newsletter_html.html">뉴스레터</a></li>
-                    <li><a href="signup.html" class="cta-button">멤버쉽 가입</a></li>
-                </ul>
+                <!-- 네비게이션은 components.js에서 동적 로딩 -->
             </div>
         </nav>
     </header>
 
     <main>
         <!-- Breadcrumb Navigation -->
-        <nav aria-label="breadcrumb" style="background: #f8f9fa; padding: 10px 0; margin-top: 70px;">
-            <div class="container">
-                <ol style="list-style: none; display: flex; margin: 0; padding: 0; font-size: 0.9rem;">
-                    <li><a href="index.html" style="color: #2c5530; text-decoration: none;">홈</a></li>
-                    <li style="margin: 0 10px; color: #666;">/</li>
-                    <li style="color: #666;">김포 지역 비즈니스 커뮤니티 멤버쉽</li>
-                </ol>
-            </div>
-        </nav>
+        <div id="breadcrumb-container">
+            <!-- 브레드크럼은 components.js에서 동적 로딩 -->
+        </div>
         <section class="benefits-hero">
             <div class="container">
                 <h1>정대표의 오토플랜 멤버쉽</h1>
                 <p>자생적 지역 생태계의 핵심 구성원이 되어 함께 성장하세요</p>
+                <div style="margin-top: 40px; text-align: center;">
+                    <div class="enhanced-cta-container">
+                        <a href="#" class="enhanced-cta-button" onclick="openStoryModal()">
+                            <span class="cta-icon">📖</span>
+                            <span class="cta-text">
+                                <span class="cta-main">우리의 이야기 더 알아보기</span>
+                                <span class="cta-sub">김포에서 시작된 선순환의 이야기</span>
+                            </span>
+                            <span class="cta-arrow">→</span>
+                        </a>
+                        <div class="cta-hint">
+                            <span>✨ 실제 협업 과정과 성과를 확인하세요</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <section class="benefits-section">
             <div class="container">
                 <h2>두 사람의 이야기</h2>
-                <div style="max-width: 1000px; margin: 0 auto;">
+                <div style="max-width: 1000px; margin: 80px auto;">
                     
                     <!-- 정대표의 관점 -->
                     <div style="background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%); color: white; padding: 40px; border-radius: 15px; margin-bottom: 30px;">
@@ -396,7 +573,7 @@
                     <!-- 만남과 변화 -->
                     <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                         <h3 style="color: #2c5530; margin-bottom: 30px; text-align: center; font-size: 1.8rem;">만남이 만들어낸 변화</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px;">
                             <div style="text-align: center; padding: 20px; border: 2px solid #e5e7eb; border-radius: 10px;">
                                 <div style="font-size: 3rem; margin-bottom: 15px;">🤝</div>
                                 <h4 style="color: #2c5530; margin-bottom: 15px;">우연한 만남</h4>
@@ -418,6 +595,14 @@
                                     입소문이 퍼지며 주변 사람들이 하나둘 모여들기 시작했습니다. 금전 거래가 없어도 각자의 전문성이 오갔고, 진정한 커뮤니티가 형성되었습니다.
                                 </p>
                             </div>
+                        </div>
+                        
+                        <!-- 갤러리 콜라주 추가 -->
+                        <div style="margin-top: 30px;">
+                            <div id="gallery-collage-container">
+                                <!-- 갤러리 콜라주는 components.js에서 동적 로딩 -->
+                            </div>
+                        </div>
                         </div>
                     </div>
 
@@ -444,7 +629,7 @@
                 </div>
             </div>
         </section>
-
+<!-- 
         <section class="benefits-section">
             <div class="container">
                 <h2>삼각편대의 시너지</h2>
@@ -465,12 +650,12 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <section class="benefits-section" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
             <div class="container">
                 <h2>이 모델의 의의</h2>
-                <div style="max-width: 1000px; margin: 0 auto;">
+                <div style="max-width: 1000px; margin: 80px auto;">
                     
                     <!-- 지역 생태계의 의미 -->
                     <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px;">
@@ -547,7 +732,7 @@
             <div class="container">
                 <h2>함께 만들어가는 지역의 미래</h2>
                 <p>김포에서 시작된 작은 만남이 더 많은 지역으로 확산되어, 지역 경제가 스스로 살아날 수 있는 씨앗이 되기를 바랍니다.</p>
-                <a href="#" class="cta-button" onclick="openStoryModal()">우리의 이야기 더 알아보기</a>
+                <a href="signup.html" class="cta-button">지역 생태계 참여하기</a>
             </div>
         </section>
     </main>
@@ -679,9 +864,63 @@
         </div>
     </div>
 
+    <!-- Gallery Modal (직접 포함) -->
+    <div id="galleryModal" class="gallery-modal">
+        <div class="gallery-modal-content">
+            <div class="gallery-header">
+                <h2>📸 커뮤니티 갤러리</h2>
+                <span class="close-gallery" onclick="closeGalleryModal()">&times;</span>
+            </div>
+            <div class="gallery-container">
+                <div class="gallery-navigation">
+                    <button id="galleryPrevBtn" onclick="previousGalleryImage()" disabled>← 이전</button>
+                    <span id="galleryCounter">1 / 85</span>
+                    <button id="galleryNextBtn" onclick="nextGalleryImage()">다음 →</button>
+                </div>
+                <div class="gallery-viewport">
+                    <div class="gallery-main-image">
+                        <img id="galleryMainImg" src="assets/img/gallery/IMG_5121.webp" alt="갤러리 이미지">
+                    </div>
+                    <div class="gallery-thumbnails" id="galleryThumbnails">
+                        <!-- 썸네일들이 동적으로 생성됩니다 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating CTA -->
+    <div class="floating-cta" id="floatingCta">
+        <a href="#" class="enhanced-cta-button" onclick="openStoryModal()">
+            <span class="cta-icon">📖</span>
+            <span class="cta-text">
+                <span class="cta-main">우리의 이야기 더 알아보기</span>
+                <span class="cta-sub">김포에서 시작된 선순환의 이야기</span>
+            </span>
+            <span class="cta-arrow">→</span>
+        </a>
+    </div>
+
+    <script src="js/components.js"></script>
+    <script src="js/gallery.js"></script>
     <script src="script.js"></script>
     <script>
         let currentStory = 1;
+
+        // Floating CTA scroll behavior
+        window.addEventListener('scroll', function() {
+            const floatingCta = document.getElementById('floatingCta');
+            const heroSection = document.querySelector('.benefits-hero');
+            const scrollPosition = window.scrollY;
+            const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+
+            // Show floating CTA when scrolled past hero section
+            if (scrollPosition > heroBottom + 200) {
+                floatingCta.classList.add('visible');
+            } else {
+                floatingCta.classList.remove('visible');
+            }
+        });
         const totalStories = 2;
 
         function openStoryModal() {
@@ -739,12 +978,8 @@
             }
         });
 
-        // Auto-open story modal when page loads
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                openStoryModal();
-            }, 500); // 0.5초 후 모달 열기 (페이지 로딩 완료 후)
-        });
+        // 모달 자동 열기 기능 제거 - 사용자가 직접 클릭해야 함
     </script>
+    <script src="js/components.js"></script>
 </body>
 </html>

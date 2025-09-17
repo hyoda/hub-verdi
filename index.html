@@ -50,32 +50,16 @@
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <div class="nav-logo">
-                    <h1>정대표의 오토플랜</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="index.html">홈</a></li>
-                    <li><a href="membership.html">멤버쉽 소개</a></li>
-                    <li><a href="benefits.html">혜택 & 서비스</a></li>
-                    <li><a href="programs.html">프로그램</a></li>
-                    <li><a href="newsletter/autoplan_newsletter_html.html">뉴스레터</a></li>
-                    <li><a href="signup.html" class="cta-button">멤버쉽 가입</a></li>
-                </ul>
+                <!-- 네비게이션은 components.js에서 동적 로딩 -->
             </div>
         </nav>
     </header>
 
     <main>
         <!-- Breadcrumb Navigation -->
-        <nav aria-label="breadcrumb" style="background: #f8f9fa; padding: 10px 0; margin-top: 70px;">
-            <div class="container">
-                <ol style="list-style: none; display: flex; margin: 0; padding: 0; font-size: 0.9rem;">
-                    <li><a href="index.html" style="color: #2c5530; text-decoration: none;">홈</a></li>
-                    <li style="margin: 0 10px; color: #666;">/</li>
-                    <li style="color: #666;">정대표의 오토플랜</li>
-                </ol>
-            </div>
-        </nav>
+        <div id="breadcrumb-container">
+            <!-- 브레드크럼은 components.js에서 동적 로딩 -->
+        </div>
         <section class="hero">
             <div class="hero-content">
                 <h1>지역의 신뢰를 기술로 확장하다</h1>
@@ -115,11 +99,10 @@
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 정대표의 오토플랜. All rights reserved.</p>
-        </div>
+        <!-- 푸터는 components.js에서 동적 로딩 -->
     </footer>
 
+    <script src="js/components.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

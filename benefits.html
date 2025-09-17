@@ -13,37 +13,340 @@
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://autoplan.hyoda.kr/benefits.html">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Newsletter Link Styles -->
+    <style>
+        .newsletter-link-container {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .newsletter-link {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .newsletter-link:hover {
+            border-color: #2c5530;
+            background: linear-gradient(135deg, #f0f8f0 0%, #ffffff 100%);
+            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .newsletter-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .newsletter-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .newsletter-text strong {
+            color: #2c5530;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .newsletter-text small {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .newsletter-arrow {
+            font-size: 1.5rem;
+            color: #2c5530;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .newsletter-link:hover .newsletter-arrow {
+            transform: translateX(5px);
+        }
+        
+        /* 서비스 링크 카드 스타일 */
+        .service-links-container {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .service-link-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .service-link-card:hover {
+            border-color: #2c5530;
+            background: linear-gradient(135deg, #f0f8f0 0%, #ffffff 100%);
+            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .service-link-header h4 {
+            color: #2c5530;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .service-link-header p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+        
+        .service-link-content {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .service-image {
+            flex-shrink: 0;
+            width: 120px;
+        }
+        
+        .service-details {
+            flex: 1;
+        }
+        
+        .service-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+        
+        .service-details li {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+        
+        .service-link-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #2c5530;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .service-link-button:hover {
+            background: #1e3a21;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(44, 85, 48, 0.3);
+        }
+        
+        .service-link-button span:last-child {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-link-button:hover span:last-child {
+            transform: translateX(3px);
+        }
+        
+        /* 대시보드 미리보기 스타일 */
+        .dashboard-preview {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .dashboard-image {
+            text-align: center;
+        }
+        
+        .dashboard-description h4 {
+            color: #2c5530;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .dashboard-description p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .dashboard-description ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .dashboard-description li {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        
+        /* 미라클 타임 미리보기 스타일 */
+        .miracle-time-preview {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e7ff;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.08);
+        }
+        
+        .miracle-description h4 {
+            color: #4f46e5;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .miracle-description p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .miracle-description ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .miracle-description li {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+        
+        .miracle-image {
+            text-align: center;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .newsletter-link {
+                padding: 15px;
+            }
+
+            .newsletter-icon {
+                font-size: 1.5rem;
+                margin-right: 12px;
+            }
+
+            .newsletter-text strong {
+                font-size: 1rem;
+            }
+
+            .newsletter-text small {
+                font-size: 0.85rem;
+            }
+
+            .newsletter-arrow {
+                font-size: 1.2rem;
+            }
+            
+            .service-links-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .service-link-card {
+                padding: 15px;
+            }
+            
+            .service-link-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .service-image {
+                width: 100%;
+            }
+            
+            .service-image img {
+                height: 100px !important;
+            }
+            
+            .dashboard-preview {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .dashboard-image img {
+                max-width: 100%;
+                height: auto;
+            }
+            
+            .miracle-time-preview {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            
+            .miracle-image img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="nav-container">
-                <div class="nav-logo">
-                    <h1>정대표의 오토플랜</h1>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="index.html">홈</a></li>
-                    <li><a href="membership.html">멤버쉽 소개</a></li>
-                    <li><a href="benefits.html">혜택 & 서비스</a></li>
-                    <li><a href="programs.html">프로그램</a></li>
-                    <li><a href="newsletter/autoplan_newsletter_html.html">뉴스레터</a></li>
-                    <li><a href="signup.html" class="cta-button">멤버쉽 가입</a></li>
-                </ul>
+                <!-- 네비게이션은 components.js에서 동적 로딩 -->
             </div>
         </nav>
     </header>
 
     <main>
         <!-- Breadcrumb Navigation -->
-        <nav aria-label="breadcrumb" style="background: #f8f9fa; padding: 10px 0; margin-top: 70px;">
-            <div class="container">
-                <ol style="list-style: none; display: flex; margin: 0; padding: 0; font-size: 0.9rem;">
-                    <li><a href="index.html" style="color: #2c5530; text-decoration: none;">홈</a></li>
-                    <li style="margin: 0 10px; color: #666;">/</li>
-                    <li style="color: #666;">AI 자동화 혜택 & 서비스</li>
-                </ol>
-            </div>
-        </nav>
+        <div id="breadcrumb-container">
+            <!-- 브레드크럼은 components.js에서 동적 로딩 -->
+        </div>
         <section class="benefits-hero">
             <div class="container">
                 <h1>멤버쉽 혜택 & 서비스</h1>
@@ -100,6 +403,16 @@
                             <li>정부 지원 사업 및 정책 업데이트</li>
                             <li>멤버 전용 이벤트 및 기회 안내</li>
                         </ul>
+                        <div class="newsletter-link-container">
+                            <a href="newsletter/autoplan_newsletter_html.html" class="newsletter-link">
+                                <span class="newsletter-icon">📰</span>
+                                <span class="newsletter-text">
+                                    <strong>창간호 읽어보기</strong>
+                                    <small>지역 비즈니스 인사이트와 성공 사례</small>
+                                </span>
+                                <span class="newsletter-arrow">→</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
@@ -126,27 +439,234 @@
                     </div>
                     <div class="program-content">
                         <ul class="program-features">
-                            <li>월 1회 전국 각지 워케이션 프로그램</li>
-                            <li>집중적인 비즈니스 전략 수립 워크샵</li>
-                            <li>팀 빌딩 및 협업 강화 활동</li>
-                            <li>지역 특색을 활용한 비즈니스 아이디어 발굴</li>
-                            <li>멤버 간 깊이 있는 관계 형성 기회</li>
+                            <li>남해 워케이션 모델 기반 검증된 프로그램</li>
+                            <li>브레인스토밍과 난상토론 중심의 집단지성 발현</li>
+                            <li>지역 전문가와 유동 인재의 스위칭 허브 연결</li>
+                            <li>95% 참가자 만족도 달성한 실증된 모델</li>
+                            <li>지역 정착률 25%의 지속가능한 커뮤니티 구축</li>
+                        </ul>
+                        <div class="newsletter-link-container">
+                            <a href="https://dalpum.hyoda.kr/" target="_blank" class="newsletter-link">
+                                <span class="newsletter-icon">🏖️</span>
+                                <span class="newsletter-text">
+                                    <strong>남해 워케이션 성공 사례 보기</strong>
+                                    <small>서로학교의 6년간 검증된 워케이션 모델과 스위칭 허브</small>
+                                </span>
+                                <span class="newsletter-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>🤖 스마트 챗봇 시스템</h3>
+                        <p>24시간 고객 응대 자동화</p>
+                    </div>
+                    <div class="program-content">
+                        <p>고객 문의를 자동으로 분류하고 답변하는 AI 챗봇으로 고객 만족도를 높이고 업무 효율성을 극대화하세요.</p>
+                        <ul class="program-features">
+                            <li>자연어 처리 기반 고객 문의 자동 답변</li>
+                            <li>다국어 지원 (한국어, 영어, 일본어, 중국어)</li>
+                            <li>주문 처리 및 배송 조회 자동화</li>
+                            <li>고객 데이터 분석 및 리포트 생성</li>
+                            <li>카카오톡, 웹사이트, 앱 연동 가능</li>
+                        </ul>
+                        <div style="margin-top: 20px; padding: 15px; background: #f0f8f0; border-radius: 8px;">
+                            <strong>📊 효과:</strong> 고객 응답 시간 90% 단축, 고객 만족도 35% 향상
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>📈 스마트 마케팅 AI & 포인트 시스템</h3>
+                        <p>데이터 기반 마케팅 전략 자동화와 고객 리텐션 솔루션</p>
+                    </div>
+                    <div class="program-content">
+                        <p>고객 행동 패턴을 분석하여 최적의 마케팅 전략을 제안하고, 스마트 포인트 시스템으로 고객 리텐션을 극대화합니다.</p>
+                        <ul class="program-features">
+                            <li>카카오 로그인 기반 간편 고객 관리</li>
+                            <li>QR 코드 시스템으로 10% 자동 포인트 적립</li>
+                            <li>실시간 포인트 적립 및 사용 처리</li>
+                            <li>매장 관리자 모드로 운영 효율성 극대화</li>
+                            <li>JWT 기반 안전한 보안 시스템</li>
+                        </ul>
+                        
+                        <div class="miracle-time-preview">
+                            <div class="miracle-description">
+                                <h4>🎯 미라클 타임 포인트 적립앱</h4>
+                                <p>카카오 로그인과 QR코드로 간편하게! 구매 시 10% 자동 적립, 언제 어디서나 포인트 사용</p>
+                                <ul>
+                                    <li>✅ 카카오톡으로 3초 만에 로그인</li>
+                                    <li>✅ 개인별 고유 QR 코드 생성</li>
+                                    <li>✅ 1포인트 = 1원으로 현금처럼 사용</li>
+                                    <li>✅ 실시간 포인트 적립과 사용 처리</li>
+                                </ul>
+                            </div>
+                            <div class="miracle-image">
+                                <img src="assets/img/miracle-time/image.png" alt="미라클 타임 포인트 적립앱" style="width: 100%; max-width: 400px; height: auto; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            </div>
+                        </div>
+                        
+                        <div class="newsletter-link-container">
+                            <a href="https://miracle.hyoda.kr" target="_blank" class="newsletter-link">
+                                <span class="newsletter-icon">🎯</span>
+                                <span class="newsletter-text">
+                                    <strong>미라클 타임 포인트 적립앱 체험하기</strong>
+                                    <small>스마트 포인트 적립 솔루션으로 고객과 매장 모두에게 가치 제공</small>
+                                </span>
+                                <span class="newsletter-arrow">→</span>
+                            </a>
+                        </div>
+                        
+                        <div style="margin-top: 20px; padding: 15px; background: #f0f8f0; border-radius: 8px;">
+                            <strong>📊 효과:</strong> 고객 리텐션 40% 향상, 매장 운영 효율성 60% 증대
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>📊 비즈니스 인텔리전스 대시보드</h3>
+                        <p>실시간 비즈니스 현황 모니터링</p>
+                    </div>
+                    <div class="program-content">
+                        <p>복잡한 비즈니스 데이터를 직관적인 시각화로 제공하여 빠른 의사결정을 지원합니다.</p>
+                        <ul class="program-features">
+                            <li>매출, 고객, 재고 실시간 모니터링</li>
+                            <li>맞춤형 KPI 대시보드 구성</li>
+                            <li>예측 분석 및 트렌드 시각화</li>
+                            <li>모바일 앱으로 언제든 확인 가능</li>
+                            <li>알림 및 리포트 자동 생성</li>
+                        </ul>
+                        
+                        <div class="dashboard-preview">
+                            <div class="dashboard-image">
+                                <img src="assets/img/coupang-trend/image.png" alt="쿠팡 트렌드 분석 대시보드" style="width: 100%; max-width: 600px; height: auto; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+                            </div>
+                            <div class="dashboard-description">
+                                <h4>🎯 실제 대시보드 미리보기</h4>
+                                <p>쿠팡 키워드 트렌드를 실시간으로 분석하고, 카테고리별 인기 키워드를 확인하여 광고 전략을 수립하세요.</p>
+                                <ul>
+                                    <li>✅ 2024년 주차별 데이터 수집 현황</li>
+                                    <li>✅ 키워드 노출점수 및 증감률 분석</li>
+                                    <li>✅ 카테고리별 트렌드 비교</li>
+                                    <li>✅ 일괄 다운로드 기능</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="newsletter-link-container">
+                            <a href="https://coupang-trend.hyoda.kr" target="_blank" class="newsletter-link">
+                                <span class="newsletter-icon">📈</span>
+                                <span class="newsletter-text">
+                                    <strong>쿠팡 트렌드 분석 대시보드 체험하기</strong>
+                                    <small>실시간 쇼핑몰 데이터 분석과 트렌드 예측</small>
+                                </span>
+                                <span class="newsletter-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>🕷️ 웹 데이터 크롤링 시스템 (크롤캣)</h3>
+                        <p>경쟁사 정보 및 시장 데이터 자동 수집</p>
+                    </div>
+                    <div class="program-content">
+                        <p>경쟁사의 가격, 제품 정보, 고객 리뷰 등을 자동으로 수집하여 시장 동향을 파악하고 전략을 수립하세요.</p>
+                        <ul class="program-features">
+                            <li>자동 로그인 처리 및 상품 정보 일괄 수집</li>
+                            <li>이미지 정보 추출 및 변환 저장</li>
+                            <li>추출 데이터 변환, 가공 및 분석</li>
+                            <li>스케줄 지정 자동 크롤링</li>
+                            <li>상품정보 판매분석 및 카테고라이징</li>
+                        </ul>
+                        
+                        <div class="service-links-container">
+                            <div class="service-link-card">
+                                <div class="service-link-header">
+                                    <h4>🛍️ 쇼핑몰 상품 크롤링 & 리포트</h4>
+                                    <p>자영업자와 1인 기업가를 위한 AI 도구 기반 자동화 서비스</p>
+                                </div>
+                                <div class="service-link-content">
+                                    <div class="service-image">
+                                        <img src="/assets/img/crawlcat/list.png" alt="크롤링 솔루션" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                                    </div>
+                                    <div class="service-details">
+                                        <ul>
+                                            <li>✅ 자동 로그인 처리</li>
+                                            <li>✅ 상품 정보 일괄 수집</li>
+                                            <li>✅ 이미지 정보 추출 및 변환</li>
+                                            <li>✅ 데이터 분석 및 리포트 생성</li>
+                                        </ul>
+                                        <a href="https://kmong.com/gig/663189" target="_blank" class="service-link-button">
+                                            <span>상세 보기</span>
+                                            <span>→</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="service-link-card">
+                                <div class="service-link-header">
+                                    <h4>🤖 업무 자동화 솔루션</h4>
+                                    <p>쇼핑몰 상품 자동 등록 시스템으로 반복 작업 완전 자동화</p>
+                                </div>
+                                <div class="service-link-content">
+                                    <div class="service-image">
+                                        <img src="/assets/img/crawlcat/detail.png" alt="자동화 솔루션" style="width: 100%; height: 120px; object-fit: cover; border-radius: 8px;">
+                                    </div>
+                                    <div class="service-details">
+                                        <ul>
+                                            <li>✅ 쿠팡 Wing, 네이버플러스스토어 자동 로그인</li>
+                                            <li>✅ 상품 등록 완전 자동화</li>
+                                            <li>✅ 오류 감지 및 수정</li>
+                                            <li>✅ 실시간 모니터링 시스템</li>
+                                        </ul>
+                                        <a href="https://kmong.com/gig/664123" target="_blank" class="service-link-button">
+                                            <span>상세 보기</span>
+                                            <span>→</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="program-card">
+                    <div class="program-header">
+                        <h3>📋 자동 문서 처리 시스템</h3>
+                        <p>반복적인 문서 작업 완전 자동화</p>
+                    </div>
+                    <div class="program-content">
+                        <p>계약서, 견적서, 보고서 등 반복적인 문서 작업을 AI가 자동으로 처리하여 업무 효율성을 높입니다.</p>
+                        <ul class="program-features">
+                            <li>템플릿 기반 문서 자동 생성</li>
+                            <li>PDF, 이미지에서 텍스트 자동 추출</li>
+                            <li>계약서 및 법무 문서 검토</li>
+                            <li>다국어 문서 번역</li>
+                            <li>전자서명 연동</li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="program-card">
                     <div class="program-header">
-                        <h3>🤖 AI프로그램 & 업무 자동화 (크롤캣)</h3>
-                        <p>최신 AI 기술을 활용한 업무 효율성 극대화</p>
+                        <h3>📦 스마트 재고 관리</h3>
+                        <p>AI 기반 재고 최적화</p>
                     </div>
                     <div class="program-content">
+                        <p>판매 패턴을 분석하여 최적의 재고량을 예측하고 자동으로 발주 프로세스를 관리합니다.</p>
                         <ul class="program-features">
-                            <li>맞춤형 AI 챗봇 및 고객 응대 시스템</li>
-                            <li>자동화된 마케팅 및 판매 도구</li>
-                            <li>데이터 수집 및 분석 크롤링 서비스</li>
-                            <li>24/7 기술 지원 및 업그레이드 서비스</li>
-                            <li>개인별 사용 교육 및 컨설팅</li>
+                            <li>수요 예측 및 재고 최적화</li>
+                            <li>자동 발주 시스템</li>
+                            <li>유통기한 및 재고 회전율 관리</li>
+                            <li>공급업체 연동</li>
+                            <li>비용 절감 리포트</li>
                         </ul>
                     </div>
                 </div>
@@ -201,6 +721,73 @@
             </div>
         </section>
 
+        <section class="benefits-section">
+            <div class="container">
+                <h2>데이터 자료 & 서식 라이브러리</h2>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <h3>📄 비즈니스 템플릿</h3>
+                        <p>사업계획서, 제안서, 계약서 등 업무에 필요한 모든 문서 템플릿을 제공합니다.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>📊 산업 분석 리포트</h3>
+                        <p>업종별 시장 동향, 경쟁사 분석, 고객 트렌드 분석 등 전문 리포트를 정기적으로 제공합니다.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>💼 법무 서식</h3>
+                        <p>근로계약서, 임대차계약서, 개인정보처리방침 등 법적 리스크를 최소화하는 서식을 제공합니다.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>📈 재무 관리 도구</h3>
+                        <p>손익계산서, 현금흐름표, 예산 계획서 등 재무 관리에 필요한 엑셀 도구를 제공합니다.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>🎯 마케팅 자료</h3>
+                        <p>광고 카피, 이미지 템플릿, 소셜미디어 콘텐츠 등 마케팅에 활용할 수 있는 자료를 제공합니다.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>📚 교육 콘텐츠</h3>
+                        <p>업무 자동화, AI 활용법, 디지털 마케팅 등 실무에 바로 적용할 수 있는 교육 자료를 제공합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits-section" style="background: #f8f9fa;">
+            <div class="container">
+                <h2>멤버 전용 혜택</h2>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="color: #2c5530; font-size: 1.8rem; margin-bottom: 20px;">🎁 무제한 이용권</h3>
+                        <p style="font-size: 1.2rem; line-height: 1.7; margin-bottom: 30px;">
+                            모든 AI 도구와 자동화 프로그램을 <strong>무제한으로 이용</strong>할 수 있습니다.<br>
+                            추가 비용 없이 업그레이드와 신기능도 계속 제공됩니다.
+                        </p>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+                            <div style="background: #f0f8f0; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #2c5530;">24/7 지원</h4>
+                                <p>언제든 기술 지원 받기</p>
+                            </div>
+                            <div style="background: #f0f8f0; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #2c5530;">무료 업그레이드</h4>
+                                <p>신기능 자동 업데이트</p>
+                            </div>
+                            <div style="background: #f0f8f0; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #2c5530;">맞춤 설정</h4>
+                                <p>개인 비즈니스에 최적화</p>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 1rem; color: #666; margin-top: 20px;">
+                            * 멤버쉽 기간 중 모든 서비스를 제한 없이 이용할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="cta-section">
             <div class="container">
                 <h2>함께 만들어가는 지역의 미래</h2>
@@ -211,11 +798,10 @@
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 정대표의 오토플랜. All rights reserved.</p>
-        </div>
+        <!-- 푸터는 components.js에서 동적 로딩 -->
     </footer>
 
+    <script src="js/components.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

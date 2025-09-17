@@ -1,0 +1,24 @@
+<!-- Gallery Modal -->
+<div id="galleryModal" class="gallery-modal">
+    <div class="gallery-modal-content">
+        <div class="gallery-header">
+            <h2>📸 커뮤니티 갤러리</h2>
+            <span class="close-gallery" onclick="closeGalleryModal()">&times;</span>
+        </div>
+        <div class="gallery-container">
+            <div class="gallery-navigation">
+                <button id="galleryPrevBtn" onclick="previousGalleryImage()" disabled>← 이전</button>
+                <span id="galleryCounter">1 / 85</span>
+                <button id="galleryNextBtn" onclick="nextGalleryImage()">다음 →</button>
+            </div>
+            <div class="gallery-viewport">
+                <div class="gallery-main-image">
+                    <img id="galleryMainImg" src="assets/img/gallery/IMG_5121.webp" alt="갤러리 이미지">
+                </div>
+                <div class="gallery-thumbnails" id="galleryThumbnails">
+                    <!-- 썸네일들이 동적으로 생성됩니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
