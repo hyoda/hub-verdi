@@ -1,5 +1,13 @@
 User-agent: *
 Allow: /
+
+User-agent: Yeti
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# 크롤링 제외 경로
 Disallow: /api/
 Disallow: /tasks/
 Disallow: /cursor-rules/
@@ -7,6 +15,3 @@ Disallow: /_redirects
 
 # Sitemap
 Sitemap: https://autoplan.hyoda.kr/sitemap.xml
-
-# Crawl-delay for respectful crawling
-Crawl-delay: 1
