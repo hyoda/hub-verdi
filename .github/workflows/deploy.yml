@@ -53,10 +53,20 @@ jobs:
         
         # Install dependencies and restart API
         ssh -i ~/.ssh/id_rsa ubuntu@${{ secrets.HOST_IP }} "
+          # Load NVM environment
+          export NVM_DIR=\"\$HOME/.nvm\"
+          [ -s \"\$NVM_DIR/nvm.sh\" ] && . \"\$NVM_DIR/nvm.sh\"
+          
           cd /var/www/autoplan-api
-          npm install
-          pm2 stop hub-verdi-api 2>/dev/null || true
-          pm2 delete hub-verdi-api 2>/dev/null || true
-          pm2 start ecosystem.config.js
+          
+          # Verify Node.js environment
+          echo \"Node version: \$(node -v)\"
+          echo \"NPM version: \$(npm -v)\"
+          
+          # Install dependencies
+          npm install --production
+          
+          # Restart PM2 process
+          pm2 restart hub-verdi-api || pm2 start ecosystem.config.js
           pm2 save
         "
