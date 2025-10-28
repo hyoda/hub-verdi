@@ -70,10 +70,10 @@ jobs:
           pm2 restart hub-verdi-api || pm2 start ecosystem.config.js
           pm2 save
         "
-      
-      - name: Health check
-        run: |
-          echo "Waiting for API to start..."
-          sleep 5
-          curl -f https://autoplan.hyoda.kr/api/health || exit 1
-          echo "✅ API deployment successful!"
+    
+    - name: Health check
+      run: |
+        echo "Waiting for API to start..."
+        sleep 5
+        curl -f https://autoplan.hyoda.kr/api/health || exit 1
+        echo "✅ API deployment successful!"
